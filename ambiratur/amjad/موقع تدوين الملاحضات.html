@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>تطبيق الملاحظات المتقدم</title>
+      <link rel="shortcut icon" href="500x500.png" type="image/x-icon">
+      <style>
+         /* CSS متقدم ومطور */
+         :root {
+         --primary-color: #2563eb;
+         --secondary-color: #3b82f6;
+         --accent-color: #60a5fa;
+         --background-color: #ffffff;
+         --surface-color: #f8fafc;
+         --text-primary: #1e293b;
+         --text-secondary: #64748b;
+         --border-color: #e2e8f0;
+         --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+         --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+         --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+         --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+         }
+         [data-theme="dark"] {
+         --background-color: #0f172a;
+         --surface-color: #1e293b;
+         --text-primary: #f1f5f9;
+         --text-secondary: #94a3b8;
+         --border-color: #334155;
+         }
+         * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         }
+         body {
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         background-color: var(--background-color);
+         color: var(--text-primary);
+         line-height: 1.6;
+         transition: var(--transition);
+         }
+         .container {
+         max-width: 1200px;
+         margin: 0 auto;
+         padding: 20px;
+         }
+         /* رأس التطبيق */
+         .header {
+         background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+         color: white;
+         padding: 30px 0;
+         text-align: center;
+         box-shadow: var(--shadow-lg);
+         margin-bottom: 30px;
+         border-radius: 16px;
+         }
+         .header h1 {
+         font-size: 2.5rem;
+         font-weight: 700;
+         margin-bottom: 10px;
+         text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+         }
+         .header p {
+         font-size: 1.1rem;
+         opacity: 0.9;
+         }
+         /* شريط الأدوات */
+         .toolbar {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         margin-bottom: 30px;
+         flex-wrap: wrap;
+         gap: 15px;
+         }
+         .btn {
+         background: var(--primary-color);
+         color: white;
+         border: none;
+         padding: 12px 24px;
+         border-radius: 8px;
+         cursor: pointer;
+         font-size: 14px;
+         font-weight: 600;
+         transition: var(--transition);
+         box-shadow: var(--shadow-sm);
+         display: inline-flex;
+         align-items: center;
+         gap: 8px;
+         }
+         .btn:hover {
+         background: var(--secondary-color);
+         transform: translateY(-2px);
+         box-shadow: var(--shadow-md);
+         }
+         .btn-secondary {
+         background: var(--surface-color);
+         color: var(--text-primary);
+         border: 2px solid var(--border-color);
+         }
+         .btn-secondary:hover {
+         background: var(--border-color);
+         }
+         .btn-danger {
+         background: #ef4444;
+         }
+         .btn-danger:hover {
+         background: #dc2626;
+         }
+         /* مربع البحث */
+         .search-box {
+         position: relative;
+         flex: 1;
+         max-width: 400px;
+         }
+         .search-input {
+         width: 100%;
+         padding: 12px 45px 12px 20px;
+         border: 2px solid var(--border-color);
+         border-radius: 25px;
+         font-size: 14px;
+         background: var(--surface-color);
+         color: var(--text-primary);
+         transition: var(--transition);
+         }
+         .search-input:focus {
+         outline: none;
+         border-color: var(--primary-color);
+         box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+         }
+         .search-icon {
+         position: absolute;
+         right: 15px;
+         top: 50%;
+         transform: translateY(-50%);
+         color: var(--text-secondary);
+         }
+         /* نموذج إضافة ملاحظة */
+         .note-form {
+         background: var(--surface-color);
+         padding: 25px;
+         border-radius: 16px;
+         box-shadow: var(--shadow-md);
+         margin-bottom: 30px;
+         border: 1px solid var(--border-color);
+         }
+         .form-group {
+         margin-bottom: 20px;
+         }
+         .form-label {
+         display: block;
+         margin-bottom: 8px;
+         font-weight: 600;
+         color: var(--text-primary);
+         }
+         .form-input, .form-textarea {
+         width: 100%;
+         padding: 12px 16px;
+         border: 2px solid var(--border-color);
+         border-radius: 8px;
+         font-size: 14px;
+         background: var(--background-color);
+         color: var(--text-primary);
+         transition: var(--transition);
+         }
+         .form-input:focus, .form-textarea:focus {
+         outline: none;
+         border-color: var(--primary-color);
+         box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+         }
+         .form-textarea {
+         resize: vertical;
+         min-height: 120px;
+         }
+         /* شبكة الملاحظات */
+         .notes-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+         gap: 20px;
+         margin-bottom: 30px;
+         }
+         .note-card {
+         background: var(--surface-color);
+         padding: 20px;
+         border-radius: 12px;
+         box-shadow: var(--shadow-sm);
+         border: 1px solid var(--border-color);
+         transition: var(--transition);
+         position: relative;
+         overflow: hidden;
+         }
+         .note-card:hover {
+         transform: translateY(-4px);
+         box-shadow: var(--shadow-lg);
+         }
+         .note-card::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         right: 0;
+         width: 4px;
+         height: 100%;
+         background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+         }
+         .note-title {
+         font-size: 1.2rem;
+         font-weight: 700;
+         margin-bottom: 10px;
+         color: var(--text-primary);
+         }
+         .note-content {
+         color: var(--text-secondary);
+         margin-bottom: 15px;
+         line-height: 1.5;
+         display: -webkit-box;
+         -webkit-line-clamp: 3;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
+         }
+         .note-meta {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         font-size: 12px;
+         color: var(--text-secondary);
+         }
+         .note-actions {
+         display: flex;
+         gap: 10px;
+         margin-top: 15px;
+         }
+         .btn-small {
+         padding: 6px 12px;
+         font-size: 12px;
+         border-radius: 6px;
+         }
+         /* الوضع المظلم */
+         .theme-toggle {
+         position: fixed;
+         bottom: 20px;
+         left: 20px;
+         background: var(--surface-color);
+         border: 2px solid var(--border-color);
+         border-radius: 50%;
+         width: 50px;
+         height: 50px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         cursor: pointer;
+         box-shadow: var(--shadow-md);
+         transition: var(--transition);
+         }
+         .theme-toggle:hover {
+         transform: scale(1.1);
+         }
+         /* رسائل التنبيه */
+         .alert {
+         position: fixed;
+         top: 20px;
+         right: 20px;
+         padding: 15px 20px;
+         border-radius: 8px;
+         color: white;
+         font-weight: 600;
+         box-shadow: var(--shadow-lg);
+         transform: translateX(400px);
+         transition: var(--transition);
+         z-index: 1000;
+         }
+         .alert.show {
+         transform: translateX(0);
+         }
+         .alert-success {
+         background: #10b981;
+         }
+         .alert-error {
+         background: #ef4444;
+         }
+         .alert-warning {
+         background: #f59e0b;
+         }
+         /* نافذة التعديل */
+         .modal {
+         display: none;
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: rgba(0, 0, 0, 0.5);
+         z-index: 1000;
+         backdrop-filter: blur(5px);
+         }
+         .modal-content {
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         background: var(--surface-color);
+         padding: 30px;
+         border-radius: 16px;
+         width: 90%;
+         max-width: 600px;
+         max-height: 80vh;
+         overflow-y: auto;
+         box-shadow: var(--shadow-lg);
+         }
+         .modal-header {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         margin-bottom: 20px;
+         }
+         .modal-title {
+         font-size: 1.5rem;
+         font-weight: 700;
+         color: var(--text-primary);
+         }
+         .close-btn {
+         background: none;
+         border: none;
+         font-size: 24px;
+         cursor: pointer;
+         color: var(--text-secondary);
+         transition: var(--transition);
+         }
+         .close-btn:hover {
+         color: var(--text-primary);
+         }
+         /* التصميم المتجاوب */
+         @media (max-width: 768px) {
+         .container {
+         padding: 15px;
+         }
+         .header h1 {
+         font-size: 2rem;
+         }
+         .toolbar {
+         flex-direction: column;
+         align-items: stretch;
+         }
+         .search-box {
+         max-width: none;
+         }
+         .notes-grid {
+         grid-template-columns: 1fr;
+         }
+         .modal-content {
+         width: 95%;
+         padding: 20px;
+         }
+         }
+         @media (max-width: 480px) {
+         .header h1 {
+         font-size: 1.5rem;
+         }
+         .header p {
+         font-size: 1rem;
+         }
+         .btn {
+         padding: 10px 20px;
+         font-size: 13px;
+         }
+         .note-form {
+         padding: 20px;
+         }
+         }
+         /* مؤشر التحميل */
+         .loading {
+         display: inline-block;
+         width: 20px;
+         height: 20px;
+         border: 3px solid rgba(255,255,255,.3);
+         border-radius: 50%;
+         border-top-color: white;
+         animation: spin 1s ease-in-out infinite;
+         }
+         @keyframes spin {
+         to { transform: rotate(360deg); }
+         }
+         /* قائمة منسدلة */
+         .dropdown {
+         position: relative;
+         display: inline-block;
+         }
+         .dropdown-content {
+         display: none;
+         position: absolute;
+         background: var(--surface-color);
+         min-width: 200px;
+         box-shadow: var(--shadow-lg);
+         border-radius: 8px;
+         z-index: 1;
+         right: 0;
+         top: 100%;
+         margin-top: 5px;
+         border: 1px solid var(--border-color);
+         }
+         .dropdown:hover .dropdown-content {
+         display: block;
+         }
+         .dropdown-item {
+         padding: 12px 16px;
+         cursor: pointer;
+         transition: var(--transition);
+         border-bottom: 1px solid var(--border-color);
+         }
+         .dropdown-item:last-child {
+         border-bottom: none;
+         }
+         .dropdown-item:hover {
+         background: var(--background-color);
+         }
+         /* إحصائيات */
+         .stats {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+         gap: 20px;
+         margin-bottom: 30px;
+         }
+         .stat-card {
+         background: var(--surface-color);
+         padding: 20px;
+         border-radius: 12px;
+         text-align: center;
+         box-shadow: var(--shadow-sm);
+         border: 1px solid var(--border-color);
+         }
+         .stat-number {
+         font-size: 2rem;
+         font-weight: 700;
+         color: var(--primary-color);
+         }
+         .stat-label {
+         color: var(--text-secondary);
+         font-size: 14px;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <!-- رأس التطبيق -->
+         <header class="header">
+            <h1>📝 تطبيق الملاحظات المتقدم</h1>
+            <p>أنشئ، نظم، وحمّل ملاحظاتك بسهولة وأناقة</p>
+         </header>
+         <!-- شريط الأدوات -->
+         <div class="toolbar">
+            <div class="search-box">
+               <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن ملاحظاتك...">
+               <span class="search-icon">🔍</span>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+               <button class="btn" onclick="showAddNoteForm()">
+               ➕ ملاحظة جديدة
+               </button>
+               <div class="dropdown">
+                  <button class="btn btn-secondary">
+                  ⚙️ خيارات ▼
+                  </button>
+                  <div class="dropdown-content">
+                     <div class="dropdown-item" onclick="exportNotes()">
+                        📤 تصدير الملاحظات
+                     </div>
+                     <div class="dropdown-item" onclick="importNotes()">
+                        📥 استيراد الملاحظات
+                     </div>
+                     <div class="dropdown-item" onclick="clearAllNotes()">
+                        🗑️ مسح الكل
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- إحصائيات -->
+         <div class="stats">
+            <div class="stat-card">
+               <div class="stat-number" id="totalNotes">0</div>
+               <div class="stat-label">إجمالي الملاحظات</div>
+            </div>
+            <div class="stat-card">
+               <div class="stat-number" id="todayNotes">0</div>
+               <div class="stat-label">ملاحظات اليوم</div>
+            </div>
+            <div class="stat-card">
+               <div class="stat-number" id="storageUsed">0%</div>
+               <div class="stat-label">المساحة المستخدمة</div>
+            </div>
+         </div>
+         <!-- نموذج إضافة ملاحظة -->
+         <div class="note-form" id="noteForm" style="display: none;">
+            <h3 style="margin-bottom: 20px; color: var(--text-primary);">✍️ إنشاء ملاحظة جديدة</h3>
+            <div class="form-group">
+               <label class="form-label">عنوان الملاحظة</label>
+               <input type="text" class="form-input" id="noteTitle" placeholder="أدخل عنوان الملاحظة...">
+            </div>
+            <div class="form-group">
+               <label class="form-label">محتوى الملاحظة</label>
+               <textarea class="form-textarea" id="noteContent" placeholder="اكتب محتوى الملاحظة هنا..."></textarea>
+            </div>
+            <div style="display: flex; gap: 10px;">
+               <button class="btn" onclick="saveNote()">💾 حفظ الملاحظة</button>
+               <button class="btn btn-secondary" onclick="hideAddNoteForm()">❌ إلغاء</button>
+            </div>
+         </div>
+         <!-- شبكة الملاحظات -->
+         <div class="notes-grid" id="notesGrid">
+            <!-- سيتم ملء الملاحظات هنا ديناميكياً -->
+         </div>
+         <!-- رسالة عدم وجود ملاحظات -->
+         <div id="noNotesMessage" style="text-align: center; padding: 60px 20px; color: var(--text-secondary);">
+            <div style="font-size: 4rem; margin-bottom: 20px;">📝</div>
+            <h3>لا توجد ملاحظات حتى الآن</h3>
+            <p>ابدأ بإنشاء ملاحظتك الأولى!</p>
+         </div>
+      </div>
+      <!-- نافذة تعديل الملاحظة -->
+      <div class="modal" id="editModal">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h3 class="modal-title">✏️ تعديل الملاحظة</h3>
+               <button class="close-btn" onclick="closeEditModal()">&times;</button>
+            </div>
+            <div class="form-group">
+               <label class="form-label">عنوان الملاحظة</label>
+               <input type="text" class="form-input" id="editNoteTitle">
+            </div>
+            <div class="form-group">
+               <label class="form-label">محتوى الملاحظة</label>
+               <textarea class="form-textarea" id="editNoteContent"></textarea>
+            </div>
+            <div style="display: flex; gap: 10px;">
+               <button class="btn" onclick="updateNote()">💾 تحديث الملاحظة</button>
+               <button class="btn btn-secondary" onclick="closeEditModal()">❌ إلغاء</button>
+            </div>
+         </div>
+      </div>
+      <!-- زر تبديل الوضع المظلم -->
+      <div class="theme-toggle" onclick="toggleTheme()">
+         <span id="themeIcon">🌙</span>
+      </div>
+      <!-- رسائل التنبيه -->
+      <div class="alert" id="alert"></div>
+      <script>
+         // متغيرات التطبيق
+         let notes = [];
+         let editingNoteId = null;
+         let currentTheme = localStorage.getItem('theme') || 'light';
+         
+         // تهيئة التطبيق
+         document.addEventListener('DOMContentLoaded', function() {
+             initializeTheme();
+             loadNotes();
+             updateStatistics();
+             setupEventListeners();
+         });
+         
+         // تهيئة الوضع المظلم/المضيء
+         function initializeTheme() {
+             document.documentElement.setAttribute('data-theme', currentTheme);
+             document.getElementById('themeIcon').textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+         }
+         
+         // تبديل الوضع المظلم/المضيء
+         function toggleTheme() {
+             currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+             document.documentElement.setAttribute('data-theme', currentTheme);
+             localStorage.setItem('theme', currentTheme);
+             document.getElementById('themeIcon').textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+             showAlert('تم تغيير الوضع بنجاح!', 'success');
+         }
+         
+         // إعداد مستمعي الأحداث
+         function setupEventListeners() {
+             // البحث
+             document.getElementById('searchInput').addEventListener('input', function(e) {
+                 searchNotes(e.target.value);
+             });
+         
+             // حفظ الملاحظة عند الضغط على Enter
+             document.getElementById('noteTitle').addEventListener('keypress', function(e) {
+                 if (e.key === 'Enter') {
+                     document.getElementById('noteContent').focus();
+                 }
+             });
+         
+             // إغلاق النافذة المنبثقة عند الضغط على Escape
+             document.addEventListener('keydown', function(e) {
+                 if (e.key === 'Escape') {
+                     closeEditModal();
+                 }
+             });
+         }
+         
+         // تحميل الملاحظات من localStorage
+         function loadNotes() {
+             const savedNotes = localStorage.getItem('notes');
+             if (savedNotes) {
+                 notes = JSON.parse(savedNotes);
+                 renderNotes();
+             }
+         }
+         
+         // حفظ الملاحظات في localStorage
+         function saveNotesToStorage() {
+             localStorage.setItem('notes', JSON.stringify(notes));
+             updateStatistics();
+         }
+         
+         // عرض نموذج إضافة ملاحظة
+         function showAddNoteForm() {
+             document.getElementById('noteForm').style.display = 'block';
+             document.getElementById('noteTitle').focus();
+         }
+         
+         // إخفاء نموذج إضافة ملاحظة
+         function hideAddNoteForm() {
+             document.getElementById('noteForm').style.display = 'none';
+             document.getElementById('noteTitle').value = '';
+             document.getElementById('noteContent').value = '';
+         }
+         
+         // حفظ ملاحظة جديدة
+         function saveNote() {
+             const title = document.getElementById('noteTitle').value.trim();
+             const content = document.getElementById('noteContent').value.trim();
+         
+             if (!title && !content) {
+                 showAlert('يرجى إدخال عنوان أو محتوى الملاحظة!', 'warning');
+                 return;
+             }
+         
+             const note = {
+                 id: Date.now(),
+                 title: title || 'ملاحظة بدون عنوان',
+                 content: content,
+                 createdAt: new Date().toISOString(),
+                 updatedAt: new Date().toISOString()
+             };
+         
+             notes.unshift(note);
+             saveNotesToStorage();
+             renderNotes();
+             hideAddNoteForm();
+             showAlert('تم حفظ الملاحظة بنجاح!', 'success');
+         }
+         
+         // عرض الملاحظات
+         function renderNotes(notesToRender = notes) {
+             const notesGrid = document.getElementById('notesGrid');
+             const noNotesMessage = document.getElementById('noNotesMessage');
+         
+             if (notesToRender.length === 0) {
+                 notesGrid.style.display = 'none';
+                 noNotesMessage.style.display = 'block';
+                 return;
+             }
+         
+             notesGrid.style.display = 'grid';
+             noNotesMessage.style.display = 'none';
+         
+             notesGrid.innerHTML = notesToRender.map(note => `
+                 <div class="note-card">
+                     <div class="note-title">${escapeHtml(note.title)}</div>
+                     <div class="note-content">${escapeHtml(note.content)}</div>
+                     <div class="note-meta">
+                         <span>📅 ${formatDate(note.createdAt)}</span>
+                         <span>🔄 ${formatDate(note.updatedAt)}</span>
+                     </div>
+                     <div class="note-actions">
+                         <button class="btn btn-small" onclick="editNote(${note.id})">
+                             ✏️ تعديل
+                         </button>
+                         <button class="btn btn-small btn-danger" onclick="deleteNote(${note.id})">
+                             🗑️ حذف
+                         </button>
+                         <button class="btn btn-small btn-secondary" onclick="downloadNote(${note.id})">
+                             💾 تحميل
+                         </button>
+                     </div>
+                 </div>
+             `).join('');
+         }
+         
+         // تعديل ملاحظة
+         function editNote(id) {
+             const note = notes.find(n => n.id === id);
+             if (!note) return;
+         
+             editingNoteId = id;
+             document.getElementById('editNoteTitle').value = note.title;
+             document.getElementById('editNoteContent').value = note.content;
+             document.getElementById('editModal').style.display = 'block';
+             document.getElementById('editNoteTitle').focus();
+         }
+         
+         // تحديث ملاحظة
+         function updateNote() {
+             const title = document.getElementById('editNoteTitle').value.trim();
+             const content = document.getElementById('editNoteContent').value.trim();
+         
+             if (!title && !content) {
+                 showAlert('يرجى إدخال عنوان أو محتوى الملاحظة!', 'warning');
+                 return;
+             }
+         
+             const noteIndex = notes.findIndex(n => n.id === editingNoteId);
+             if (noteIndex !== -1) {
+                 notes[noteIndex] = {
+                     ...notes[noteIndex],
+                     title: title || 'ملاحظة بدون عنوان',
+                     content: content,
+                     updatedAt: new Date().toISOString()
+                 };
+         
+                 saveNotesToStorage();
+                 renderNotes();
+                 closeEditModal();
+                 showAlert('تم تحديث الملاحظة بنجاح!', 'success');
+             }
+         }
+         
+         // إغلاق نافذة التعديل
+         function closeEditModal() {
+             document.getElementById('editModal').style.display = 'none';
+             editingNoteId = null;
+         }
+         
+         // حذف ملاحظة
+         function deleteNote(id) {
+             if (confirm('هل أنت متأكد من حذف هذه الملاحظة؟')) {
+                 notes = notes.filter(note => note.id !== id);
+                 saveNotesToStorage();
+                 renderNotes();
+                 showAlert('تم حذف الملاحظة بنجاح!', 'success');
+             }
+         }
+         
+         // تحميل ملاحظة كملف
+         function downloadNote(id) {
+             const note = notes.find(n => n.id === id);
+             if (!note) return;
+         
+             const content = `عنوان الملاحظة: ${note.title}\n\nالمحتوى:\n${note.content}\n\nتاريخ الإنشاء: ${formatDate(note.createdAt)}\nتاريخ التحديث: ${formatDate(note.updatedAt)}`;
+             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+             const url = URL.createObjectURL(blob);
+             
+             const a = document.createElement('a');
+             a.href = url;
+             a.download = `${note.title.replace(/[^a-z0-9]/gi, '_')}.txt`;
+             document.body.appendChild(a);
+             a.click();
+             document.body.removeChild(a);
+             URL.revokeObjectURL(url);
+             
+             showAlert('تم تحميل الملاحظة بنجاح!', 'success');
+         }
+         
+         // تصدير جميع الملاحظات
+         function exportNotes() {
+             if (notes.length === 0) {
+                 showAlert('لا توجد ملاحظات للتصدير!', 'warning');
+                 return;
+             }
+         
+             const data = {
+                 notes: notes,
+                 exportDate: new Date().toISOString(),
+                 version: '1.0'
+             };
+         
+             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json;charset=utf-8' });
+             const url = URL.createObjectURL(blob);
+             
+             const a = document.createElement('a');
+             a.href = url;
+             a.download = `notes_backup_${new Date().toISOString().split('T')[0]}.json`;
+             document.body.appendChild(a);
+             a.click();
+             document.body.removeChild(a);
+             URL.revokeObjectURL(url);
+             
+             showAlert('تم تصدير الملاحظات بنجاح!', 'success');
+         }
+         
+         // استيراد الملاحظات
+         function importNotes() {
+             const input = document.createElement('input');
+             input.type = 'file';
+             input.accept = '.json';
+             
+             input.onchange = function(e) {
+                 const file = e.target.files[0];
+                 if (!file) return;
+         
+                 const reader = new FileReader();
+                 reader.onload = function(e) {
+                     try {
+                         const data = JSON.parse(e.target.result);
+                         if (data.notes && Array.isArray(data.notes)) {
+                             if (confirm(`هل تريد استيراد ${data.notes.length} ملاحظة؟ سيتم دمجها مع الملاحظات الحالية.`)) {
+                                 notes = [...notes, ...data.notes];
+                                 saveNotesToStorage();
+                                 renderNotes();
+                                 showAlert('تم استيراد الملاحظات بنجاح!', 'success');
+                             }
+                         } else {
+                             showAlert('ملف غير صالح!', 'error');
+                         }
+                     } catch (error) {
+                         showAlert('خطأ في قراءة الملف!', 'error');
+                     }
+                 };
+                 reader.readAsText(file);
+             };
+             
+             input.click();
+         }
+         
+         // مسح جميع الملاحظات
+         function clearAllNotes() {
+             if (notes.length === 0) {
+                 showAlert('لا توجد ملاحظات لحذفها!', 'warning');
+                 return;
+             }
+         
+             if (confirm('هل أنت متأكد من حذف جميع الملاحظات؟ لا يمكن التراجع عن هذا الإجراء.')) {
+                 notes = [];
+                 saveNotesToStorage();
+                 renderNotes();
+                 showAlert('تم حذف جميع الملاحظات!', 'success');
+             }
+         }
+         
+         // البحث عن الملاحظات
+         function searchNotes(query) {
+             if (!query.trim()) {
+                 renderNotes();
+                 return;
+             }
+         
+             const filteredNotes = notes.filter(note => 
+                 note.title.toLowerCase().includes(query.toLowerCase()) ||
+                 note.content.toLowerCase().includes(query.toLowerCase())
+             );
+         
+             renderNotes(filteredNotes);
+         }
+         
+         // تحديث الإحصائيات
+         function updateStatistics() {
+             const totalNotes = notes.length;
+             const today = new Date().toDateString();
+             const todayNotes = notes.filter(note => 
+                 new Date(note.createdAt).toDateString() === today
+             ).length;
+             
+             const storageUsed = Math.round((JSON.stringify(notes).length / (5 * 1024 * 1024)) * 100);
+         
+             document.getElementById('totalNotes').textContent = totalNotes;
+             document.getElementById('todayNotes').textContent = todayNotes;
+             document.getElementById('storageUsed').textContent = storageUsed + '%';
+         }
+         
+         // عرض رسالة تنبيه
+         function showAlert(message, type = 'success') {
+             const alert = document.getElementById('alert');
+             alert.textContent = message;
+             alert.className = `alert alert-${type}`;
+             alert.classList.add('show');
+         
+             setTimeout(() => {
+                 alert.classList.remove('show');
+             }, 3000);
+         }
+         
+         // تنسيق التاريخ
+         function formatDate(dateString) {
+             const date = new Date(dateString);
+             const now = new Date();
+             const diffTime = Math.abs(now - date);
+             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+         
+             if (diffDays === 0) {
+                 const hours = Math.floor(diffTime / (1000 * 60 * 60));
+                 if (hours === 0) {
+                     const minutes = Math.floor(diffTime / (1000 * 60));
+                     return minutes === 0 ? 'الآن' : `قبل ${minutes} دقيقة`;
+                 }
+                 return `قبل ${hours} ساعة`;
+             } else if (diffDays === 1) {
+                 return 'أمس';
+             } else if (diffDays < 7) {
+                 return `قبل ${diffDays} أيام`;
+             } else {
+                 return date.toLocaleDateString('ar-EG');
+             }
+         }
+         
+         // هروب HTML
+         function escapeHtml(text) {
+             const div = document.createElement('div');
+             div.textContent = text;
+             return div.innerHTML;
+         }
+         
+         // تنزيل جميع الملاحظات كملف نصي
+         function downloadAllNotesAsText() {
+             if (notes.length === 0) {
+                 showAlert('لا توجد ملاحظات للتحميل!', 'warning');
+                 return;
+             }
+         
+             let content = '=== جميع الملاحظات ===\n\n';
+             notes.forEach((note, index) => {
+                 content += `الملاحظة رقم ${index + 1}:\n`;
+                 content += `العنوان: ${note.title}\n`;
+                 content += `المحتوى:\n${note.content}\n`;
+                 content += `تاريخ الإنشاء: ${formatDate(note.createdAt)}\n`;
+                 content += `تاريخ التحديث: ${formatDate(note.updatedAt)}\n`;
+                 content += '=====================================\n\n';
+             });
+         
+             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+             const url = URL.createObjectURL(blob);
+             
+             const a = document.createElement('a');
+             a.href = url;
+             a.download = `all_notes_${new Date().toISOString().split('T')[0]}.txt`;
+             document.body.appendChild(a);
+             a.click();
+             document.body.removeChild(a);
+             URL.revokeObjectURL(url);
+             
+             showAlert('تم تحميل جميع الملاحظات بنجاح!', 'success');
+         }
+         
+         // إضافة خيار تنزيل جميع الملاحظات كملف نصي إلى القائمة المنسدلة
+         document.addEventListener('DOMContentLoaded', function() {
+             const dropdownContent = document.querySelector('.dropdown-content');
+             const downloadAllItem = document.createElement('div');
+             downloadAllItem.className = 'dropdown-item';
+             downloadAllItem.onclick = downloadAllNotesAsText;
+             downloadAllItem.textContent = '📄 تحميل الكل كملف نصي';
+             dropdownContent.appendChild(downloadAllItem);
+         });
+      </script>
+   </body>
+</html>

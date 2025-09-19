@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="shortcut icon" href="500x500.png" type="image/x-icon">
+      <title>المعالج الكمي: ثورة في عالم الحوسبة</title>
+      <style>
+         * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         }
+         body {
+         font-family: 'Tajawal', 'Arial', sans-serif;
+         line-height: 1.8;
+         background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+         color: #e2e8f0;
+         min-height: 100vh;
+         background-attachment: fixed;
+         }
+         .container {
+         max-width: 900px;
+         margin: 0 auto;
+         padding: 20px;
+         }
+         header {
+         background: rgba(15, 23, 42, 0.85);
+         backdrop-filter: blur(10px);
+         -webkit-backdrop-filter: blur(10px);
+         border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+         color: white;
+         padding: 60px 0;
+         text-align: center;
+         position: relative;
+         overflow: hidden;
+         }
+         header::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: radial-gradient(circle at center, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+         z-index: -1;
+         }
+         h1 {
+         font-size: 2.8em;
+         margin-bottom: 15px;
+         background: linear-gradient(to left, #a78bfa, #8b5cf6);
+         -webkit-background-clip: text;
+         background-clip: text;
+         color: transparent;
+         position: relative;
+         z-index: 1;
+         text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+         }
+         .subtitle {
+         font-size: 1.3em;
+         opacity: 0.85;
+         max-width: 700px;
+         margin: 0 auto;
+         color: #cbd5e1;
+         }
+         article {
+         background: rgba(15, 23, 42, 0.6);
+         backdrop-filter: blur(12px);
+         -webkit-backdrop-filter: blur(12px);
+         margin: 40px auto;
+         padding: 40px;
+         border-radius: 16px;
+         border: 1px solid rgba(139, 92, 246, 0.15);
+         box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+         position: relative;
+         overflow: hidden;
+         }
+         article::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 4px;
+         background: linear-gradient(to right, #a78bfa, #8b5cf6);
+         }
+         h2 {
+         color: #a78bfa;
+         margin: 40px 0 20px;
+         padding-bottom: 10px;
+         border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+         font-size: 1.8em;
+         position: relative;
+         }
+         h2::after {
+         content: '';
+         position: absolute;
+         bottom: -2px;
+         right: 0;
+         width: 80px;
+         height: 2px;
+         background: linear-gradient(to left, #a78bfa, #8b5cf6);
+         }
+         h3 {
+         color: #8b5cf6;
+         margin: 25px 0 15px;
+         font-size: 1.4em;
+         }
+         p {
+         margin-bottom: 20px;
+         text-align: justify;
+         color: #cbd5e1;
+         font-size: 1.05em;
+         }
+         .highlight {
+         background: linear-gradient(120deg, rgba(139, 92, 246, 0.2) 0%, rgba(167, 139, 250, 0.2) 100%);
+         padding: 25px;
+         border-radius: 12px;
+         margin: 30px 0;
+         border-right: 4px solid #8b5cf6;
+         position: relative;
+         overflow: hidden;
+         }
+         .highlight::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23a78bfa' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+         opacity: 0.3;
+         z-index: -1;
+         }
+         .applications-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+         gap: 25px;
+         margin: 30px 0;
+         }
+         .app-card {
+         background: rgba(15, 23, 42, 0.7);
+         padding: 25px;
+         border-radius: 12px;
+         border: 1px solid rgba(139, 92, 246, 0.2);
+         transition: all 0.3s ease;
+         position: relative;
+         overflow: hidden;
+         }
+         .app-card::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 4px;
+         background: linear-gradient(to right, #a78bfa, #8b5cf6);
+         transform: scaleX(0);
+         transform-origin: left;
+         transition: transform 0.3s ease;
+         }
+         .app-card:hover {
+         transform: translateY(-8px);
+         box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+         border-color: rgba(139, 92, 246, 0.4);
+         }
+         .app-card:hover::before {
+         transform: scaleX(1);
+         }
+         .app-card h3 {
+         color: #8b5cf6;
+         margin-bottom: 15px;
+         display: flex;
+         align-items: center;
+         gap: 10px;
+         }
+         .app-card h3::before {
+         content: '';
+         display: inline-block;
+         width: 8px;
+         height: 8px;
+         border-radius: 50%;
+         background: #a78bfa;
+         }
+         table {
+         width: 100%;
+         border-collapse: collapse;
+         margin: 25px 0;
+         background: rgba(15, 23, 42, 0.7);
+         border-radius: 12px;
+         overflow: hidden;
+         border: 1px solid rgba(139, 92, 246, 0.2);
+         }
+         th, td {
+         padding: 15px;
+         text-align: right;
+         border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+         }
+         th {
+         background: linear-gradient(to right, rgba(139, 92, 246, 0.3), rgba(167, 139, 250, 0.3));
+         color: #e2e8f0;
+         font-weight: bold;
+         }
+         tr:hover {
+         background: rgba(139, 92, 246, 0.1);
+         }
+         .challenges-list {
+         list-style: none;
+         margin: 25px 0;
+         }
+         .challenges-list li {
+         background: rgba(15, 23, 42, 0.7);
+         padding: 20px;
+         margin-bottom: 15px;
+         border-radius: 10px;
+         position: relative;
+         padding-right: 50px;
+         border: 1px solid rgba(248, 113, 113, 0.2);
+         transition: all 0.3s ease;
+         }
+         .challenges-list li:hover {
+         transform: translateX(-5px);
+         border-color: rgba(248, 113, 113, 0.4);
+         }
+         .challenges-list li::before {
+         content: "⚠️";
+         position: absolute;
+         right: 15px;
+         top: 50%;
+         transform: translateY(-50%);
+         font-size: 24px;
+         color: #f87171;
+         }
+         .conclusion {
+         background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+         color: white;
+         padding: 40px;
+         border-radius: 16px;
+         margin-top: 40px;
+         text-align: center;
+         border: 1px solid rgba(139, 92, 246, 0.2);
+         position: relative;
+         overflow: hidden;
+         }
+         .conclusion::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: radial-gradient(circle at center, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+         z-index: 0;
+         }
+         .conclusion h2 {
+         color: white;
+         border: none;
+         margin-bottom: 25px;
+         position: relative;
+         z-index: 1;
+         }
+         .conclusion p {
+         font-size: 1.15em;
+         line-height: 1.9;
+         max-width: 800px;
+         margin: 0 auto;
+         position: relative;
+         z-index: 1;
+         color: #e2e8f0;
+         }
+         .quantum-icon {
+         font-size: 3.5em;
+         margin-bottom: 20px;
+         display: inline-block;
+         animation: float 3s ease-in-out infinite;
+         background: linear-gradient(to right, #a78bfa, #8b5cf6);
+         -webkit-background-clip: text;
+         background-clip: text;
+         color: transparent;
+         filter: drop-shadow(0 5px 15px rgba(139, 92, 246, 0.3));
+         }
+         @keyframes float {
+         0% { transform: translateY(0px); }
+         50% { transform: translateY(-10px); }
+         100% { transform: translateY(0px); }
+         }
+         .author-info {
+         text-align: center;
+         margin-top: 40px;
+         padding: 25px;
+         background: rgba(15, 23, 42, 0.7);
+         border-radius: 12px;
+         border: 1px solid rgba(139, 92, 246, 0.1);
+         color: #94a3b8;
+         }
+         @media (max-width: 768px) {
+         h1 { font-size: 2.2em; }
+         .subtitle { font-size: 1.1em; }
+         article { padding: 25px; }
+         .applications-grid { grid-template-columns: 1fr; }
+         .conclusion { padding: 25px; }
+         table { font-size: 0.9em; }
+         th, td { padding: 10px; }
+         }
+      </style>
+   </head>
+   <body>
+      <header>
+         <div class="container">
+            <h1>المعالج الكمي: ثورة في عالم الحوسبة</h1>
+            <p class="subtitle">استكشاف عالم الحوسبة الكمية وتأثيرها على مستقبل التكنولوجيا</p>
+         </div>
+      </header>
+      <div class="container">
+         <article>
+            <div class="highlight">
+               <div class="quantum-icon">⚛️</div>
+               <p><strong>في الوقت الذي تقترب فيه الحوسبة التقليدية من حدودها الفيزيائية، يبرز المعالج الكمي (Quantum Processor) كأمل جديد لحل المشكلات التي تفوق قدرة أقوى الحواسيب التقليدية. فبدلًا من الاعتماد على البتات (0 أو 1)، يستخدم المعالج الكمي الكيوبتات (Qubits) التي يمكن أن تكون في حالة 0 و1 في آنٍ واحد، مما يمنحه قدرة هائلة على معالجة البيانات بشكل متوازٍ وغير مسبوق.</strong></p>
+            </div>
+            <h2>ما هو المعالج الكمي؟</h2>
+            <p>المعالج الكمي، أو ما يُعرف بوحدة المعالجة الكمومية QPU (Quantum Processing Unit)، هو الجزء الأساسي في الحاسوب الكمي الذي يُنفذ العمليات الحسابية باستخدام مبادئ ميكانيكا الكم مثل:</p>
+            <ul style="margin: 20px 0; padding-right: 30px;">
+               <li style="margin-bottom: 10px;"><strong>التراكب (Superposition):</strong> يمكن للكيوبت أن يكون في حالة 0 و1 في نفس الوقت.</li>
+               <li style="margin-bottom: 10px;"><strong>التشابك (Entanglement):</strong> كيوبتات مترابطة بحيث يؤثر تغير أحدهما على الآخر فورًا، حتى لو كان بعيدًا.</li>
+               <li style="margin-bottom: 10px;"><strong>التداخل الكمي (Quantum Interference):</strong> يُستخدم لتضخيم الإجابات الصحيحة وإضعاف الخاطئة.</li>
+            </ul>
+            <h2>كيف يعمل المعالج الكمي؟</h2>
+            <ol style="margin: 20px 0; padding-right: 30px;">
+               <li style="margin-bottom: 10px;"><strong>الإدخال:</strong> يتم تهيئة الكيوبتات في حالة تراكب.</li>
+               <li style="margin-bottom: 10px;"><strong>المعالجة:</strong> تُمرّر الكيوبتات عبر أبواب كمية (Quantum Gates) لإجراء العمليات المنطقية.</li>
+               <li style="margin-bottom: 10px;"><strong>القياس:</strong> في النهاية، تُقاس حالة الكيوبتات لاستخراج النتيجة، حيث تنهار الحالات الكمية إلى 0 أو 1.</li>
+            </ol>
+            <h2>أنواع تقنيات الكيوبتات</h2>
+            <table>
+               <thead>
+                  <tr>
+                     <th>النوع</th>
+                     <th>الوصف</th>
+                     <th>الشركات الرائدة</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>الكيوبتات فائقة التوصيل</td>
+                     <td>تُبرد إلى درجات قريبة من الصفر المطلق</td>
+                     <td>IBM، Google</td>
+                  </tr>
+                  <tr>
+                     <td>الأيونات المحاصرة</td>
+                     <td>تُستخدم أيونات مُشحّنة وتُتحكم بها بالليزر</td>
+                     <td>IonQ، Quantinuum</td>
+                  </tr>
+                  <tr>
+                     <td>الفوتونات (الضوء)</td>
+                     <td>تستخدم جسيمات الضوء ككيوبتات</td>
+                     <td>Xanadu، PsiQuantum</td>
+                  </tr>
+                  <tr>
+                     <td>نقاط كمية</td>
+                     <td>تُستخدم الإلكترونات في أشباه الموصلات</td>
+                     <td>Intel</td>
+                  </tr>
+               </tbody>
+            </table>
+            <h2>الفرق بين المعالج الكمي والتقليدي</h2>
+            <table>
+               <thead>
+                  <tr>
+                     <th>الخاصية</th>
+                     <th>المعالج التقليدي</th>
+                     <th>المعالج الكمي</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>الوحدة</td>
+                     <td>بت (0 أو 1)</td>
+                     <td>كيوبت (0 و1 معًا)</td>
+                  </tr>
+                  <tr>
+                     <td>السرعة</td>
+                     <td>خطية</td>
+                     <td>أسية مع كل كيوبت إضافي</td>
+                  </tr>
+                  <tr>
+                     <td>التطبيقات</td>
+                     <td>عامة</td>
+                     <td>متخصصة (تحسين، محاكاة، تشفير)</td>
+                  </tr>
+                  <tr>
+                     <td>البيئة</td>
+                     <td>غرف عادية</td>
+                     <td>تبريد شديد أو عزل كمي</td>
+                  </tr>
+               </tbody>
+            </table>
+            <h2>أبرز استخدامات المعالج الكمي</h2>
+            <div class="applications-grid">
+               <div class="app-card">
+                  <h3>🔓 كسر التشفير</h3>
+                  <p>يمكنه تحليل الأرقام العملاقة بسرعة، مما يهدد أنظمة RSA الحالية.</p>
+               </div>
+               <div class="app-card">
+                  <h3>🧬 محاكاة الجزيئات</h3>
+                  <p>لتسريع اكتشاف الأدوية والمواد الجديدة.</p>
+               </div>
+               <div class="app-card">
+                  <h3>📊 تحسين العمليات</h3>
+                  <p>مثل إدارة المرور أو سلاسل التوريد.</p>
+               </div>
+               <div class="app-card">
+                  <h3>🤖 الذكاء الاصطناعي</h3>
+                  <p>لتسريع التعلم الآلي والبحث في الفضاءات الضخمة.</p>
+               </div>
+            </div>
+            <h2>أبرز المعالجات الكمية حتى 2025</h2>
+            <table>
+               <thead>
+                  <tr>
+                     <th>الاسم</th>
+                     <th>الشركة</th>
+                     <th>عدد الكيوبتات</th>
+                     <th>ملاحظات</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>Willow</td>
+                     <td>Google</td>
+                     <td>105</td>
+                     <td>حققت تفوقًا كميًا في مهام محددة</td>
+                  </tr>
+                  <tr>
+                     <td>Osprey</td>
+                     <td>IBM</td>
+                     <td>433</td>
+                     <td>من أقوى المعالجات حتى الآن</td>
+                  </tr>
+                  <tr>
+                     <td>Aria</td>
+                     <td>IonQ</td>
+                     <td>32</td>
+                     <td>دقة عالية باستخدام الأيونات</td>
+                  </tr>
+                  <tr>
+                     <td>Triangulum</td>
+                     <td>SpinQ</td>
+                     <td>3</td>
+                     <td>محمول، مخصص للتعليم</td>
+                  </tr>
+               </tbody>
+            </table>
+            <h2>التحديات التي تواجه المعالج الكمي</h2>
+            <ul class="challenges-list">
+               <li><strong>الهشاشة:</strong> الكيوبتات حساسة للاهتزازات والحرارة.</li>
+               <li><strong>تصحيح الأخطاء:</strong> لا يزال من الصعب حماية العمليات الكمية من التشويش.</li>
+               <li><strong>التكلفة:</strong> يتطلب تبريدًا شديدًا ومعدات معقدة.</li>
+               <li><strong>البرمجة:</strong> تتطلب لغات ولغة تفكير جديدة، مثل Qiskit أو CUDA-Q.</li>
+            </ul>
+            <h2>مستقبل المعالج الكمي</h2>
+            <p>خلال العقد القادم، من المتوقع أن:</p>
+            <ul style="margin: 20px 0; padding-right: 30px;">
+               <li style="margin-bottom: 10px;">تُطوّر معالجات تحتوي على آلاف الكيوبتات المستقرة.</li>
+               <li style="margin-bottom: 10px;">تندمج المعالجات الكمية مع الحواسيب التقليدية في أنظمة هجينة.</li>
+               <li style="margin-bottom: 10px;">تُستخدم المعالجات الكمية في الصناعة والطب والأمن، وليس فقط في المعامل.</li>
+            </ul>
+            <div class="conclusion">
+               <h2>خلاصة</h2>
+               <p>المعالج الكمي ليس مجرد تطوير تقني، بل هو نقلة نوعية في طريقة معالجة المعلومات. لن يحل محل الحاسوب التقليدي، لكنه سيكون أداة حاسمة لحل المشكلات التي تبدو اليوم مستعصية. مع استمرار الاستثمارات العالمية، قد لا نكون بعيدين عن عصر الحوسبة الكمية العملية التي تُغير وجه العلم والصناعة والأمن الرقمي.</p>
+            </div>
+         </article>
+         <div class="author-info">
+            <p>📅 تم النشر في: سبتمبر 2025 | 🏷️ تصنيف: تكنولوجيا | ⚛️ تاجز: الحوسبة الكمية، المعالجات، الثورة التقنية</p>
+         </div>
+      </div>
+   </body>
+</html>

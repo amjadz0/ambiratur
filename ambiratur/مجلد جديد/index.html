@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>شركتك المستقبلية</title>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="شركة الإمبراطور لتطوير الحلول الرقمية، نقدم خدمات تصميم المواقع، تطبيقات الجوال، الذكاء الاصطناعي، والأمن السيبراني." />
+      <meta name="keywords" content="تصميم مواقع، تطبيقات جوال، ذكاء اصطناعي، أمن سيبراني، برمجة، تطوير ويب، شركة تقنية، اليمن" />
+      <meta name="author" content="شركة الإمبراطور" />
+      <meta name="robots" content="index, follow" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+      <meta property="og:title" content="شركة الإمبراطور لتطوير الحلول الرقمية" />
+      <meta property="og:description" content="شركة الإمبراطور لتطوير الحلول الرقمية، نقدم خدمات تصميم المواقع، تطبيقات الجوال، الذكاء الاصطناعي، والأمن السيبراني." />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content="https://www.yourcompany.com/og-image.jpg" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="شركة الإمبراطور لتطوير الحلول الرقمية" />
+      <meta name="twitter:description" content="شركة الإمبراطور لتطوير الحلول الرقمية،نقدم خدمات تصميم المواقع، تطبيقات الجوال، الذكاء الاصطناعي، والأمن السيبراني." />
+      <meta name="theme-color" content="#1a1a1a" />
+      <link rel="shortcut icon" href="500x500.png" type="image/x-icon">
+      <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+      <link rel="stylesheet" href="index.css" />
+   </head>
+   <body data-theme="dark">
+      <div id="canvas-container"></div>
+      <header>
+         <div class="logo">الإمبراطور</div>
+         <nav>
+            <ul id="nav-links">
+               <li data-title="الرئيسية"><a href="#hero"><i class="fas fa-home"></i></a></li>
+               <li data-title="الخدمات"><a href="#services" ><i class="fas fa-cogs"></i></a></li>
+               <li data-title="اعمالنا"><a href="#portfolio" ><i class="fas fa-briefcase"></i></a></li>
+               <li data-title="الميزات"><a href="#features" ><i class="fas fa-star"></i></a></li>
+               <li data-title="نبذا عنا"><a href="#about"><i class="fas fa-users"></i></a></li>
+               <li data-title="المدونة"><a href="#blog" ><i class="fas fa-blog"></i></a></li>
+               <li data-title="الأسئلة"><a href="#faq"><i class="fas fa-question-circle"></i></a></li>
+               <li data-title="الحاسبة الذكية"><a href="#ai"><i class="fas fa-calculator"></i></a></li>
+               <li data-title="تواصل معنا"><a href="#contact" ><i class="fas fa-envelope"></i></a></li>
+            </ul>
+         </nav>
+         <div>
+            <select id="theme-switch" class="theme-select">
+               <option value="dark">Dark</option>
+               <option value="light">Light</option>
+               <option value="purple">Purple</option>
+               <option value="green">Green</option>
+               <option value="orange">Orange</option>
+               <option value="pink">Pink</option>
+               <option value="yellow">Yellow</option>
+            </select>
+            <select id="lang-switch">
+               <option value="ar">العربية</option>
+               <option value="en">English</option>
+               <option value="es">Español</option>
+               <option value="ja">日本語</option>
+               <option value="zh">中文</option>
+               <option value="ko">한국어</option>
+               <option value="fr">Français</option>
+               <option value="de">Deutsch</option>
+               <option value="ru">Русский</option>
+            </select>
+         </div>
+      </header>
+      <section id="hero" class="hero">
+         <div class="container">
+            <h1 data-key="hero-title">نبني المستقبل الرقمي</h1>
+            <p data-key="hero-desc">حلول ويب عالية المستوى بتجربة مستخدم غامرة.</p>
+            <a href="#ai"><button data-key="start" style="color: #000;">ابدأ الآن</button></a> 
+            <a href="#portfolio"><button data-key="works" style="color: #000;">أعمالنا</button></a>
+         </div>
+      </section>
+      <section id="services">
+         <div class="container">
+            <h2 data-key="services-title">خدماتنا</h2>
+            <div class="cards" id="services-grid">
+               <!-- 15 service -->
+            </div>
+            <button id="show-more-services" data-key="show-more">عرض المزيد</button>
+         </div>
+      </section>
+      <section id="portfolio">
+         <div class="container">
+            <h2 data-key="portfolio-title"></h2>
+            <div class="cards" id="portfolio-grid"></div>
+         </div>
+      </section>
+      <section id="about">
+         <div class="container">
+            <h2 data-key="team-title">فريق العمل</h2>
+            <div class="cards" id="team-grid">
+            </div>
+         </div>
+      </section>
+      <section id="features">
+         <div class="container">
+            <h2 data-en="Our Features">مميزاتنا</h2>
+            <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+               <!-- 15 ميزة -->
+               <div class="feature-item">
+                  <i class="fa-solid fa-bolt fa-2x" style="color:var(--accent);"></i>
+                  <h3 data-en="Fast Delivery">تسليم سريع</h3>
+                  <p data-en="Before deadline.">قبل الموعد.</p>
+               </div>
+               <div class="feature-item">
+                  <i class="fa-solid fa-shield-halved fa-2x" style="color:var(--accent);"></i>
+                  <h3 data-en="Secure Apps">تطبيقات آمنة</h3>
+                  <p data-en="Pen-tested.">مختبرة اختراق.</p>
+               </div>
+               <div class="feature-item">
+                  <i class="fa-solid fa-globe fa-2x" style="color:var(--accent);"></i>
+                  <h3 data-en="Multilingual">متعدد اللغات</h3>
+                  <p data-en="Arabic & English.">عربي وإنجليزي.</p>
+               </div>
+               <div class="feature-item">
+                  <i class="fa-solid fa-code-branch fa-2x" style="color:var(--accent);"></i>
+                  <h3 data-en="Clean Code">شيفرة نظيفة</h3>
+                  <p data-en="OOP standards.">معايير OOP.</p>
+               </div>
+               <div class="feature-item">
+                  <i class="fa-solid fa-palette fa-2x" style="color:var(--accent);"></i>
+                  <h3 data-en="7 Themes">الاوان مريحه وانيقه</h3>
+                  <p data-en="Switch easily.">ثيم جميل فوري.</p>
+               </div>
+               <div class="feature-item">
+                  <i class="fa-solid fa-star fa-2x" style="color:var(--accent);"></i>
+                  <h3 data-en="Top Rated">الأعلى تقييماً</h3>
+                  <p data-en="5/5 clients.">الخطأ ممنوع.</p>
+               </div>
+               <div class="feature-item">
+                  <i class="fa-solid fa-users fa-2x" style="color:var(--accent);"></i>
+                  <h3 data-en="Dedicated Team">فريق متخصص</h3>
+                  <p data-en="Experts only.">خبراء فقط.</p>
+               </div>
+               <div class="feature-item">
+                  <i class="fa-solid fa-handshake fa-2x" style="color:var(--accent);"></i>
+                  <h3 data-en="After-Sales">خدمة ما بعد البيع</h3>
+                  <p data-en="Free 6 months.">3 أشهر مجاناً.</p>
+               </div>
+               <div class="feature-item">
+                  <i class="fa-solid fa-leaf fa-2x" style="color:var(--accent);"></i>
+                  <h3 data-en="Eco Hosting">استضافة صديقة</h3>
+                  <p data-en="Green servers.">خوادم خضراء.</p>
+               </div>
+               <div class="feature-item">
+                  <i class="fa-solid fa-rocket fa-2x" style="color:var(--accent);"></i>
+                  <h3 data-en="Scalable Systems">قابلة للتوسع</h3>
+                  <p data-en="Grow smoothly.">نمو سلس.</p>
+               </div>
+               <div class="feature-item">
+                  <i class="fa-solid fa-eye fa-2x" style="color:var(--accent);"></i>
+                  <h3 data-en="Transparent Steps">خطوات شفافة</h3>
+                  <p data-en="Track progress.">تتبع سير العمل.</p>
+               </div>
+               <div class="feature-item">
+                  <i class="fa-solid fa-money-bill-transfer fa-2x"
+                     style="color:var(--accent);"></i>
+                  <h3 data-en="Flexible Payment">دفع مرن</h3>
+                  <p data-en="Installments.">أقساط مريحة.</p>
+               </div>
+               <div class="feature-item">
+                  <i class="fa-solid fa-award fa-2x" style="color:var(--accent);"></i>
+                  <h3 data-en="Award Winning">حائزة على جوائز</h3>
+                  <p data-en="2024 best agency.">أفضل وكالة 2020.</p>
+               </div>
+               <div class="feature-item">
+                  <i class="fa-solid fa-comments fa-2x" style="color:var(--accent);"></i>
+                  <h3 data-en="Live Chat">دردشة مباشرة</h3>
+                  <p data-en="Instant support.">دعم فوري.</p>
+               </div>
+               <div class="feature-item">
+                  <i class="fa-solid fa-infinity fa-2x" style="color:var(--accent);"></i>
+                  <h3 data-en="Lifetime Updates">خصم على التحديثات</h3>
+                  <p data-en="Bug-free forever.">خالي من الأخطاء.</p>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- blog/post1.html -->
+      <section id="blog">
+         <div class="container">
+            <h2 data-key="blog-title">مقالاتنا</h2>
+            <div class="cards" id="blog-grid"></div>
+         </div>
+      </section>
+      <section id="testimonials">
+         <div class="container">
+            <h2 data-key="reviews-title">آراء العملاء</h2>
+            <div id="reviews-list"></div>
+            <form id="review-form" class="service-card">
+               <h3 data-key="add-review">أضف تقييمك</h3>
+               <input type="text" id="rev-name" placeholder="الاسم" required class="z" />
+               <textarea id="rev-msg" placeholder="تعليقك" required class="z"></textarea>
+               <div class="stars">
+                  <i class="fa-regular fa-star" data-rate="1"></i>
+                  <i class="fa-regular fa-star" data-rate="2"></i>
+                  <i class="fa-regular fa-star" data-rate="3"></i>
+                  <i class="fa-regular fa-star" data-rate="4"></i>
+                  <i class="fa-regular fa-star" data-rate="5"></i>
+               </div>
+               <button type="submit">إرسال</button>
+            </form>
+         </div>
+      </section>
+      <section id="faq">
+         <div class="container">
+            <h2 data-key="faq-title">الأسئلة الشائعة</h2>
+            <div id="faq-list"></div>
+         </div>
+      </section>
+      <section id="ai">
+         <div class="container ai">
+            <h2 data-key="ai-title">الحاسبة الذكية المتقدمة</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: var(--accent);">
+               نظام أسئلة ذكي يتفرع حسب اختياراتك - اختر مسارك للحصول على تسعير دقيق
+            </p>
+            <div class="quiz-box">
+               <div id="quiz-form"></div>
+               <div id="result-box" style="display: none;">
+                  <h3 data-key="estimated-cost">التكلفة التقديرية</h3>
+                  <p id="result-price">0 <span data-key="sar">ريال</span></p>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section id="contact">
+         <div class="container">
+            <h2 data-key="contact-title">تواصل معنا</h2>
+            <form id="contact-form" class="service-card">
+               <input type="text" id="c-name" placeholder="الاسم" required  class="z"/>
+               <input type="email" id="c-email" placeholder="البريد الإلكتروني" required  class="z"/>
+               <textarea id="c-msg" placeholder="رسالتك" required class="z"> </textarea>
+               <button type="submit">إرسال</button>
+            </form>
+            <p><i class="fa-solid fa-phone"></i> +966 5x xxx xxxx</p>
+         </div>
+      </section>
+      <footer>
+         <div class="social">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+         </div>
+         <div >© 2025  الامبراطور. جميع الحقوق محفوظة.</div>
+         <div><a href="#hero" data-key="top">العودة للأعلى</a></div>
+      </footer>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+      <script src="index.js"></script>
+   </body>
+</html>

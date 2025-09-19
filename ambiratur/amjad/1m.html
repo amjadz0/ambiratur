@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>الذكاء الاصطناعي: ثورة العصر الرقمي</title>
+      <link rel="shortcut icon" href="500x500.png" type="image/x-icon">
+      <style>
+         * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         }
+         body {
+         font-family: 'Tajawal', 'Arial', sans-serif;
+         line-height: 1.8;
+         background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+         color: #e2e8f0;
+         min-height: 100vh;
+         background-attachment: fixed;
+         }
+         .container {
+         max-width: 900px;
+         margin: 0 auto;
+         padding: 20px;
+         }
+         header {
+         background: rgba(15, 23, 42, 0.85);
+         backdrop-filter: blur(10px);
+         -webkit-backdrop-filter: blur(10px);
+         border-bottom: 1px solid rgba(94, 234, 212, 0.2);
+         color: white;
+         padding: 60px 0;
+         text-align: center;
+         position: relative;
+         overflow: hidden;
+         }
+         header::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: radial-gradient(circle at center, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+         z-index: -1;
+         }
+         h1 {
+         font-size: 2.8em;
+         margin-bottom: 15px;
+         background: linear-gradient(to left, #5eead4, #38bdf8);
+         -webkit-background-clip: text;
+         background-clip: text;
+         color: transparent;
+         position: relative;
+         z-index: 1;
+         text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+         }
+         .subtitle {
+         font-size: 1.3em;
+         opacity: 0.85;
+         max-width: 700px;
+         margin: 0 auto;
+         color: #cbd5e1;
+         }
+         article {
+         background: rgba(15, 23, 42, 0.6);
+         backdrop-filter: blur(12px);
+         -webkit-backdrop-filter: blur(12px);
+         margin: 40px auto;
+         padding: 40px;
+         border-radius: 16px;
+         border: 1px solid rgba(94, 234, 212, 0.15);
+         box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+         position: relative;
+         overflow: hidden;
+         }
+         article::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 4px;
+         background: linear-gradient(to right, #5eead4, #38bdf8);
+         }
+         h2 {
+         color: #5eead4;
+         margin: 40px 0 20px;
+         padding-bottom: 10px;
+         border-bottom: 2px solid rgba(94, 234, 212, 0.3);
+         font-size: 1.8em;
+         position: relative;
+         }
+         h2::after {
+         content: '';
+         position: absolute;
+         bottom: -2px;
+         right: 0;
+         width: 80px;
+         height: 2px;
+         background: linear-gradient(to left, #5eead4, #38bdf8);
+         }
+         h3 {
+         color: #38bdf8;
+         margin: 25px 0 15px;
+         font-size: 1.4em;
+         }
+         p {
+         margin-bottom: 20px;
+         text-align: justify;
+         color: #cbd5e1;
+         font-size: 1.05em;
+         }
+         .highlight {
+         background: linear-gradient(120deg, rgba(56, 189, 248, 0.2) 0%, rgba(94, 234, 212, 0.2) 100%);
+         padding: 25px;
+         border-radius: 12px;
+         margin: 30px 0;
+         border-right: 4px solid #38bdf8;
+         position: relative;
+         overflow: hidden;
+         }
+         .highlight::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%235eead4' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+         opacity: 0.3;
+         z-index: -1;
+         }
+         .applications-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+         gap: 25px;
+         margin: 30px 0;
+         }
+         .app-card {
+         background: rgba(15, 23, 42, 0.7);
+         padding: 25px;
+         border-radius: 12px;
+         border: 1px solid rgba(94, 234, 212, 0.2);
+         transition: all 0.3s ease;
+         position: relative;
+         overflow: hidden;
+         }
+         .app-card::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 4px;
+         background: linear-gradient(to right, #5eead4, #38bdf8);
+         transform: scaleX(0);
+         transform-origin: left;
+         transition: transform 0.3s ease;
+         }
+         .app-card:hover {
+         transform: translateY(-8px);
+         box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+         border-color: rgba(94, 234, 212, 0.4);
+         }
+         .app-card:hover::before {
+         transform: scaleX(1);
+         }
+         .app-card h3 {
+         color: #38bdf8;
+         margin-bottom: 15px;
+         display: flex;
+         align-items: center;
+         gap: 10px;
+         }
+         .app-card h3::before {
+         content: '';
+         display: inline-block;
+         width: 8px;
+         height: 8px;
+         border-radius: 50%;
+         background: #5eead4;
+         }
+         .challenges-list {
+         list-style: none;
+         margin: 25px 0;
+         }
+         .challenges-list li {
+         background: rgba(15, 23, 42, 0.7);
+         padding: 20px;
+         margin-bottom: 15px;
+         border-radius: 10px;
+         position: relative;
+         padding-right: 50px;
+         border: 1px solid rgba(248, 113, 113, 0.2);
+         transition: all 0.3s ease;
+         }
+         .challenges-list li:hover {
+         transform: translateX(-5px);
+         border-color: rgba(248, 113, 113, 0.4);
+         }
+         .challenges-list li::before {
+         content: "⚠️";
+         position: absolute;
+         right: 15px;
+         top: 50%;
+         transform: translateY(-50%);
+         font-size: 24px;
+         color: #f87171;
+         }
+         .conclusion {
+         background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+         color: white;
+         padding: 40px;
+         border-radius: 16px;
+         margin-top: 40px;
+         text-align: center;
+         border: 1px solid rgba(94, 234, 212, 0.2);
+         position: relative;
+         overflow: hidden;
+         }
+         .conclusion::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: radial-gradient(circle at center, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+         z-index: 0;
+         }
+         .conclusion h2 {
+         color: white;
+         border: none;
+         margin-bottom: 25px;
+         position: relative;
+         z-index: 1;
+         }
+         .conclusion p {
+         font-size: 1.15em;
+         line-height: 1.9;
+         max-width: 800px;
+         margin: 0 auto;
+         position: relative;
+         z-index: 1;
+         color: #e2e8f0;
+         }
+         .ai-icon {
+         font-size: 3.5em;
+         margin-bottom: 20px;
+         display: inline-block;
+         animation: float 3s ease-in-out infinite;
+         background: linear-gradient(to right, #5eead4, #38bdf8);
+         -webkit-background-clip: text;
+         background-clip: text;
+         color: transparent;
+         filter: drop-shadow(0 5px 15px rgba(56, 189, 248, 0.3));
+         }
+         @keyframes float {
+         0% { transform: translateY(0px); }
+         50% { transform: translateY(-10px); }
+         100% { transform: translateY(0px); }
+         }
+         .author-info {
+         text-align: center;
+         margin-top: 40px;
+         padding: 25px;
+         background: rgba(15, 23, 42, 0.7);
+         border-radius: 12px;
+         border: 1px solid rgba(94, 234, 212, 0.1);
+         color: #94a3b8;
+         }
+         @media (max-width: 768px) {
+         h1 { font-size: 2.2em; }
+         .subtitle { font-size: 1.1em; }
+         article { padding: 25px; }
+         .applications-grid { grid-template-columns: 1fr; }
+         .conclusion { padding: 25px; }
+         }
+      </style>
+   </head>
+   <body>
+      <header>
+         <div class="container">
+            <h1>الذكاء الاصطناعي: ثورة العصر الرقمي</h1>
+            <p class="subtitle">استكشاف عالم الذكاء الاصطناعي وتأثيره على حياتنا ومستقبلنا</p>
+         </div>
+      </header>
+      <div class="container">
+         <article>
+            <div class="highlight">
+               <div class="ai-icon">🤖</div>
+               <p><strong>في ظل التطور التكنولوجي المتسارع، أصبح الذكاء الاصطناعي (Artificial Intelligence) أحد أكثر المصطلحات تداولًا في مختلف المجالات، من الصناعة والطب إلى التعليم والترفيه. لكن ما هو الذكاء الاصطناعي حقًا؟ وكيف يعمل؟ وما هي آثاره على مجتمعاتنا ومستقبلنا؟</strong></p>
+            </div>
+            <h2>ما هو الذكاء الاصطناعي؟</h2>
+            <p>الذكاء الاصطناعي هو فرع من فروع علوم الحاسوب يهدف إلى تمكين الآلات من أداء المهام التي تتطلب عادةً ذكاءً بشريًا، مثل التعلم، والتفكير، واتخاذ القرار، والتعرف على الأنماط، وفهم اللغة الطبيعية. يُعدّ التعلم الآلي (Machine Learning) والتعلم العميق (Deep Learning) من أبرز التقنيات المستخدمة في تطوير أنظمة الذكاء الاصطناعي.</p>
+            <h2>تطبيقات الذكاء الاصطناعي</h2>
+            <div class="applications-grid">
+               <div class="app-card">
+                  <h3>🏥 في مجال الصحة</h3>
+                  <p>يُستخدم الذكاء الاصطناعي لتحليل الصور الطبية، مثل الأشعة السينية والتصوير بالرنين المغناطيسي، مما يساعد في تشخيص الأمراض بدقة أعلى. كما يساهم في تسريع عملية اكتشاف الأدوية وتطويرها.</p>
+               </div>
+               <div class="app-card">
+                  <h3>🎓 في التعليم</h3>
+                  <p>يمكن للنظم الذكية تخصيص التعليم حسب احتياجات كل طالب، وتوفير مواد تعليمية تفاعلية، وتقييم الأداء بشكل فوري، مما يعزز من جودة التعليم ويُسهم في تقليل الفجوة بين الطلاب.</p>
+               </div>
+               <div class="app-card">
+                  <h3>🚗 في النقل والمواصلات</h3>
+                  <p>تُعدّ السيارات ذاتية القيادة أحد أبرز التطبيقات المستقبلية للذكاء الاصطناعي، حيث تعتمد على تحليل البيانات الحية من أجهزة الاستشعار لاتخاذ قرارات القيادة.</p>
+               </div>
+               <div class="app-card">
+                  <h3>💼 في الأعمال والاقتصاد</h3>
+                  <p>تُستخدم خوارزميات الذكاء الاصطناعي في تحليل البيانات الضخمة، والتنبؤ بسلوك العملاء، وتحسين العمليات الإنتاجية، مما يزيد من الكفاءة ويقلل التكاليف.</p>
+               </div>
+            </div>
+            <h2>التحديات والمخاوف</h2>
+            <p>رغم الفوائد الكبيرة، يثير الذكاء الاصطناعي عددًا من التحديات الأخلاقية والاجتماعية، منها:</p>
+            <ul class="challenges-list">
+               <li><strong>البطالة الناتجة عن الأتمتة:</strong> حيث قد تحل الآلات محل البشر في بعض الوظائف.</li>
+               <li><strong>التحيزات الخوارزمية:</strong> إذ قد تعكس أنظمة الذكاء الاصطناعي التحيزات الموجودة في البيانات التي تُدرب عليها.</li>
+               <li><strong>خصوصية البيانات:</strong> مع زيادة جمع البيانات الشخصية، تبرز مخاوف بشأن كيفية استخدام هذه البيانات وحمايتها.</li>
+               <li><strong>الاستخدامات العسكرية أو الخبيثة:</strong> مثل تطوير أسلحة ذكية أو استخدام الذكاء الاصطناعي في التضليل الإعلامي.</li>
+            </ul>
+            <h2>مستقبل الذكاء الاصطناعي</h2>
+            <p>من المتوقع أن يصبح الذكاء الاصطناعي جزءًا لا يتجزأ من حياتنا اليومية، لكن ذلك يتطلب وضع إطار أخلاقي وتشريعي ينظم استخدامه، وضمان أن يكون في خدمة الإنسانية، لا العكس. كما يتعين على الحكومات والمؤسسات التعليمية الاستثمار في تطوير المهارات اللازمة للتعامل مع هذا التحول الرقمي الكبير.</p>
+            <div class="conclusion">
+               <h2>خاتمة</h2>
+               <p>الذكاء الاصطناعي ليس مجرد تقنية عابرة، بل هو ثورة معرفية واقتصادية واجتماعية عميقة. إن الفهم الجيد لطبيعته وتطبيقاته، والتعامل مع تحدياته بمسؤولية، هو ما سيحدد مدى قدرتنا على الاستفادة منه في بناء مستقبل أكثر عدلًا وازدهارًا.</p>
+            </div>
+         </article>
+         <div class="author-info">
+            <p>📅 تم النشر في: سبتمبر 2025 | 🏷️ تصنيف: تكنولوجيا</p>
+         </div>
+      </div>
+   </body>
+</html>

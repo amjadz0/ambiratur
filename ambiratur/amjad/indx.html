@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+   <head>
+      <meta charset="UTF-8">
+      <link rel="shortcut icon" href="500x500.png" type="image/x-icon">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>مطعم الأصالة اليمني - تجربة فريدة</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <style>
+         /* المتغيرات الأساسية CSS - تستخدم لتعريف الألوان والأنماط التي يمكن تغييرها ديناميكيًا */
+         :root {
+         --primary: #FFD700; /* اللون الأساسي (ذهبي) */
+         --secondary: #8B0000; /* اللون الثانوي (أحمر داكن) */
+         --accent: #e67e22; /* لون التمييز/التركيز */
+         --background: #1a1a1a; /* لون خلفية الصفحة الرئيسي */
+         --text: #f5f5f5; /* لون النص الأساسي */
+         --ai-blue: #4d8af0; /* لون خاص لمكونات الذكاء الاصطناعي */
+         --ai-purple: #8a4dff; /* لون ثانوي لمكونات الذكاء الاصطناعي */
+         --card-bg: rgba(255, 255, 255, 0.05); /* خلفية البطاقات أو العناصر الشفافة */
+         --border-color: rgba(255, 215, 0, 0.15); /* لون حدود العناصر */
+         }
+         /* تعريف ثيم إضافي: الأزرق الفاتح */
+         body.theme-light-blue { /* هذه الفئة تُضاف لـ 
+   <body> لتغيير الثيم */
+   --primary: #007bff; /* أزرق فاتح */
+   --secondary: #0056b3; /* أزرق داكن */
+   --accent: #17a2b8; /* تركواز */
+   --background: #e0f2f7; /* خلفية فاتحة */
+   --text: #333; /* نص داكن */
+   --ai-blue: #28a745; /* أخضر للذكاء الاصطناعي */
+   --ai-purple: #20c997; /* أخضر فاتح للذكاء الاصطناعي */
+   --card-bg: rgba(255, 255, 255, 0.9); /* خلفية بطاقات شبه شفافة وفاتحة */
+   --border-color: rgba(0, 123, 255, 0.3); /* حدود بلون أزرق */
+   }
+   /* أنماط CSS عامة لجميع العناصر */
+   * {
+   margin: 0; /* إزالة الهوامش الخارجية الافتراضية */
+   padding: 0; /* إزالة الحشوات الداخلية الافتراضية */
+   box-sizing: border-box; /* يجعل حساب أبعاد العناصر يشمل الحشوة والحدود */
+   font-family: 'Cairo', 'Arial', sans-serif; /* تحديد الخطوط */
+   transition: background-color 0.5s, color 0.3s, box-shadow 0.3s; /* إضافة تأثير انتقال سلس للتغيرات */
+   }
+   body {
+   background-color: var(--background); /* لون خلفية الجسم من متغير CSS */
+   color: var(--text); /* لون النص الأساسي من متغير CSS */
+   line-height: 1.6; /* تباعد الأسطر */
+   overflow-x: hidden; /* منع التمرير الأفقي */
+   position: relative; /* لتحديد موقع العناصر العائمة */
+   }
+   /* العناصر العائمة في الخلفية (لتأثير بصري جمالي) */
+   .floating-elements {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   pointer-events: none; /* تجعلها لا تستجيب لنقرات الماوس */
+   overflow: hidden;
+   z-index: 0;
+   }
+   .floating-element {
+   position: absolute;
+   background-color: rgba(255, 215, 0, 0.1); /* لون ذهبي شفاف */
+   border-radius: 50%; /* لجعلها دوائر */
+   animation: float 10s infinite ease-in-out; /* حركة عائمة مستمرة */
+   opacity: 0; /* تبدأ مخفية */
+   }
+   /* حركة العناصر العائمة */
+   @keyframes float {
+   0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+   50% { opacity: 1; }
+   100% { transform: translateY(-1000px) rotate(360deg); opacity: 0; }
+   }
+   /* شريط التحكم العلوي (اللغة، الثيم، الموسيقى) */
+   .control-bar {
+   position: fixed; /* يظل ثابتًا عند التمرير */
+   top: 0;
+   left: 0;
+   width: 100%;
+   background: rgba(0, 0, 0, 0.8); /* خلفية شفافة قليلاً */
+   color: var(--text);
+   padding: 10px 20px;
+   display: flex; /* لعرض العناصر جنباً إلى جنب */
+   justify-content: space-between; /* توزيع المساحة بين المجموعات */
+   align-items: center; /* محاذاة العناصر عمودياً */
+   z-index: 1000; /* يجعله يظهر فوق بقية المحتوى */
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* ظل سفلي */
+   }
+   .control-group {
+   display: flex;
+   gap: 15px; /* مسافة بين العناصر داخل المجموعة */
+   align-items: center;
+   }
+   .control-btn {
+   background-color: var(--secondary); /* لون خلفية الزر */
+   color: var(--text); /* لون نص الزر */
+   border: none; /* إزالة الحدود */
+   padding: 8px 15px;
+   border-radius: 5px;
+   cursor: pointer; /* مؤشر اليد عند المرور */
+   font-size: 1rem;
+   display: flex;
+   align-items: center;
+   gap: 8px; /* مسافة بين الأيقونة والنص */
+   transition: background-color 0.3s;
+   }
+   .control-btn:hover {
+   background-color: var(--primary); /* تغيير اللون عند التحويم */
+   color: #333; /* تغيير لون النص ليتناسب مع الخلفية الجديدة */
+   }
+   .language-selector,
+   .theme-selector {
+   background-color: var(--card-bg); /* خلفية محدد اللغة والثيم */
+   color: var(--text);
+   border: 1px solid var(--border-color); /* حدود بلون متغير */
+   padding: 8px 10px;
+   border-radius: 5px;
+   font-size: 0.9rem;
+   cursor: pointer;
+   }
+   .language-selector option,
+   .theme-selector option {
+   background-color: var(--background); /* خلفية خيارات القائمة */
+   color: var(--text);
+   }
+   /* شريط التنقل الرئيسي */
+   .navbar {
+   background-color: rgba(0, 0, 0, 0.7); /* خلفية شفافة */
+   padding: 1rem 0;
+   position: sticky; /* يظل ثابتًا عند التمرير بعد الوصول إليه */
+   top: 55px; /* أسفل شريط التحكم */
+   z-index: 999; /* يظهر فوق المحتوى ولكنه أقل من شريط التحكم */
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+   }
+   .navbar .container {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   }
+   .navbar-brand {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   text-decoration: none; /* إزالة خط تحت الرابط */
+   color: var(--primary); /* لون الشعار من متغير CSS */
+   }
+   .logo-icon {
+   font-size: 2.5rem;
+   }
+   .logo-text {
+   font-size: 1.8rem;
+   font-weight: bold;
+   }
+   .slogan {
+   font-size: 0.8rem;
+   color: rgba(255, 255, 255, 0.7);
+   }
+   .nav-links {
+   list-style: none; /* إزالة نقاط القائمة */
+   display: flex;
+   gap: 25px; /* مسافة بين الروابط */
+   }
+   .nav-links a {
+   color: var(--text);
+   text-decoration: none;
+   font-size: 1.1rem;
+   padding: 5px 0;
+   position: relative; /* لتحديد موقع المؤشر السفلي */
+   transition: color 0.3s;
+   }
+   .nav-links a::after {
+   content: '';
+   position: absolute;
+   bottom: -5px;
+   left: 50%;
+   width: 0;
+   height: 3px;
+   background-color: var(--primary);
+   transition: width 0.3s ease, left 0.3s ease;
+   }
+   .nav-links a:hover::after,
+   .nav-links a.active::after {
+   width: 100%;
+   left: 0;
+   }
+   .nav-links a:hover,
+   .nav-links a.active {
+   color: var(--primary);
+   }
+   .cart-toggle {
+   background-color: var(--primary);
+   color: var(--secondary);
+   border: none;
+   padding: 10px 15px;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 1.2rem;
+   position: relative;
+   display: flex;
+   align-items: center;
+   gap: 5px;
+   transition: background-color 0.3s, color 0.3s;
+   }
+   .cart-toggle:hover {
+   background-color: var(--secondary);
+   color: var(--primary);
+   }
+   .cart-count {
+   background-color: var(--secondary);
+   color: var(--primary);
+   border-radius: 50%;
+   padding: 3px 8px;
+   font-size: 0.8rem;
+   position: absolute;
+   top: -8px;
+   right: -8px;
+   border: 1px solid var(--primary);
+   }
+   /* الهيكل العام للأقسام */
+   section {
+   padding: 80px 0; /* مسافة داخلية علوية وسفلية للأقسام */
+   min-height: calc(100vh - 120px); /* على الأقل ارتفاع الشاشة ناقص ارتفاع الشريط العلوي والتنقل */
+   display: flex;
+   align-items: center; /* محاذاة المحتوى في المنتصف عمودياً */
+   }
+   .container {
+   max-width: 1200px;
+   margin: 0 auto; /* توسيط الحاوية أفقياً */
+   padding: 0 20px; /* مسافة داخلية على الجانبين */
+   }
+   .section-title {
+   font-size: 3rem;
+   color: var(--primary);
+   text-align: center;
+   margin-bottom: 50px; /* مسافة سفلية بعد العنوان */
+   position: relative;
+   padding-bottom: 10px;
+   }
+   .section-title::after {
+   content: '';
+   position: absolute;
+   bottom: 0;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 100px;
+   height: 4px;
+   background-color: var(--secondary);
+   border-radius: 2px;
+   }
+   /* قسم البانر الرئيسي */
+   .banner-section {
+   background: url('https://via.placeholder.com/1920x1080/8B0000/FFD700?text=Yemeni+Restaurant+Banner') no-repeat center center/cover; /* صورة خلفية */
+   height: 100vh; /* ارتفاع كامل الشاشة */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+   color: var(--text);
+   position: relative;
+   z-index: 1; /* ليكون فوق العناصر العائمة */
+   }
+   .banner-section::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.6); /* طبقة شفافة فوق الصورة */
+   z-index: -1;
+   }
+   .banner-content {
+   padding: 20px;
+   max-width: 800px;
+   }
+   .banner-content h2 {
+   font-size: 4rem;
+   margin-bottom: 20px;
+   color: var(--primary);
+   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+   }
+   .banner-content p {
+   font-size: 1.5rem;
+   margin-bottom: 40px;
+   }
+   .btn {
+   background-color: var(--primary);
+   color: var(--secondary);
+   padding: 15px 30px;
+   text-decoration: none;
+   border-radius: 8px;
+   font-size: 1.2rem;
+   font-weight: bold;
+   transition: background-color 0.3s, color 0.3s;
+   }
+   .btn:hover {
+   background-color: var(--secondary);
+   color: var(--primary);
+   }
+   /* قسم قائمة الطعام */
+   .menu-section {
+   background-color: var(--background);
+   }
+   .menu-categories {
+   display: flex;
+   justify-content: center;
+   gap: 20px;
+   margin-bottom: 40px;
+   flex-wrap: wrap; /* تسمح للأزرار بالنزول لسطر جديد إذا كانت الشاشة صغيرة */
+   }
+   .category-btn {
+   background-color: var(--card-bg);
+   color: var(--text);
+   border: 1px solid var(--border-color);
+   padding: 10px 20px;
+   border-radius: 25px;
+   cursor: pointer;
+   font-size: 1.1rem;
+   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+   }
+   .category-btn.active,
+   .category-btn:hover {
+   background-color: var(--primary);
+   color: var(--secondary);
+   border-color: var(--primary);
+   }
+   .menu-items {
+   display: grid; /* استخدام نظام الشبكة للعرض المرن */
+   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* أعمدة تتكيف تلقائيًا */
+   gap: 30px; /* مسافة بين عناصر الشبكة */
+   }
+   .menu-item {
+   background-color: var(--card-bg);
+   border-radius: 10px;
+   overflow: hidden; /* إخفاء أي محتوى يتجاوز حدود العنصر */
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+   transition: transform 0.3s, box-shadow 0.3s;
+   border: 1px solid var(--border-color);
+   display: flex; /* لترتيب الصورة والتفاصيل عموديًا */
+   flex-direction: column;
+   }
+   .menu-item:hover {
+   transform: translateY(-10px); /* رفع العنصر قليلاً عند التحويم */
+   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+   }
+   .item-image {
+   width: 100%;
+   height: 200px;
+   overflow: hidden;
+   }
+   .item-image img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover; /* تغطية المساحة مع الحفاظ على الأبعاد */
+   transition: transform 0.3s;
+   }
+   .menu-item:hover .item-image img {
+   transform: scale(1.05); /* تكبير الصورة قليلاً عند التحويم */
+   }
+   .item-details {
+   padding: 20px;
+   flex-grow: 1; /* لتشغل المساحة المتبقية */
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   }
+   .item-title {
+   font-size: 1.8rem;
+   color: var(--primary);
+   margin-bottom: 10px;
+   }
+   .item-description {
+   font-size: 0.9rem;
+   color: rgba(255, 255, 255, 0.7);
+   margin-bottom: 15px;
+   }
+   .item-price {
+   font-size: 1.4rem;
+   color: var(--accent);
+   font-weight: bold;
+   margin-bottom: 20px;
+   }
+   .add-to-cart {
+   background-color: var(--secondary);
+   color: var(--primary);
+   border: none;
+   padding: 10px 15px;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 1rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 8px;
+   transition: background-color 0.3s, color 0.3s;
+   width: 100%;
+   }
+   .add-to-cart:hover {
+   background-color: var(--primary);
+   color: var(--secondary);
+   }
+   /* شريط السلة الجانبي */
+   .cart-sidebar {
+   position: fixed; /* ثابت عند التمرير */
+   top: 0;
+   right: -400px; /* مخفي خارج الشاشة في البداية */
+   width: 380px; /* عرض السلة */
+   height: 100%;
+   background-color: var(--background);
+   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+   z-index: 1100; /* يظهر فوق كل شيء */
+   display: flex;
+   flex-direction: column;
+   transition: right 0.4s ease-in-out; /* حركة فتح/إغلاق سلسة */
+   border-left: 1px solid var(--border-color);
+   }
+   .cart-sidebar.active {
+   right: 0; /* يظهر على الشاشة عند تفعيل الفئة 'active' */
+   }
+   .cart-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 20px;
+   background-color: var(--primary);
+   color: var(--secondary);
+   border-bottom: 1px solid var(--border-color);
+   }
+   .cart-header h3 {
+   margin: 0;
+   font-size: 1.8rem;
+   }
+   .close-cart {
+   background: none;
+   border: none;
+   color: var(--secondary);
+   font-size: 1.2rem;
+   cursor: pointer;
+   transition: color 0.3s;
+   }
+   .close-cart:hover {
+   color: var(--background);
+   }
+   .cart-items {
+   flex-grow: 1; /* لتشغل المساحة المتبقية */
+   padding: 20px;
+   overflow-y: auto; /* إضافة شريط تمرير إذا كان المحتوى طويلاً */
+   }
+   .cart-item {
+   display: flex;
+   align-items: center;
+   gap: 15px;
+   background-color: var(--card-bg);
+   border-radius: 8px;
+   padding: 15px;
+   margin-bottom: 15px;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+   border: 1px solid var(--border-color);
+   }
+   .cart-item-image {
+   width: 80px;
+   height: 80px;
+   overflow: hidden;
+   border-radius: 5px;
+   }
+   .cart-item-image img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   }
+   .cart-item-details {
+   flex-grow: 1;
+   display: flex;
+   flex-direction: column;
+   }
+   .cart-item-title {
+   font-size: 1.2rem;
+   color: var(--primary);
+   margin-bottom: 5px;
+   }
+   .cart-item-price {
+   font-size: 1rem;
+   color: var(--text);
+   margin-bottom: 10px;
+   }
+   .cart-item-quantity {
+   display: flex;
+   align-items: center;
+   gap: 5px;
+   margin-bottom: 10px;
+   }
+   .quantity-btn {
+   background-color: var(--secondary);
+   color: var(--primary);
+   border: none;
+   width: 25px;
+   height: 25px;
+   border-radius: 3px;
+   cursor: pointer;
+   font-size: 1.1rem;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   transition: background-color 0.3s;
+   }
+   .quantity-btn:hover {
+   background-color: var(--primary);
+   color: var(--secondary);
+   }
+   .quantity-input {
+   width: 40px;
+   text-align: center;
+   background-color: var(--background);
+   color: var(--text);
+   border: 1px solid var(--border-color);
+   border-radius: 3px;
+   padding: 5px 0;
+   }
+   .remove-item {
+   background: none;
+   border: none;
+   color: var(--accent);
+   font-size: 1.2rem;
+   cursor: pointer;
+   margin-left: auto; /* يدفع زر الحذف لليمين */
+   transition: color 0.3s;
+   }
+   .remove-item:hover {
+   color: #ff4d4d; /* لون أحمر عند التحويم */
+   }
+   .cart-footer {
+   padding: 20px;
+   border-top: 1px solid var(--border-color);
+   background-color: var(--card-bg);
+   text-align: center;
+   }
+   .cart-total {
+   font-size: 1.5rem;
+   color: var(--primary);
+   margin-bottom: 15px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   }
+   .cart-total span:first-child {
+   font-weight: normal;
+   color: var(--text);
+   }
+   .checkout-btn {
+   background-color: var(--primary);
+   color: var(--secondary);
+   border: none;
+   padding: 12px 25px;
+   border-radius: 8px;
+   font-size: 1.2rem;
+   cursor: pointer;
+   width: 100%;
+   transition: background-color 0.3s, color 0.3s;
+   }
+   .checkout-btn:hover {
+   background-color: var(--secondary);
+   color: var(--primary);
+   }
+   /* قسم معرض الصور */
+   .gallery-section {
+   background-color: var(--background);
+   }
+   .gallery-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+   gap: 20px;
+   }
+   .gallery-item {
+   overflow: hidden;
+   border-radius: 10px;
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+   position: relative;
+   cursor: pointer;
+   transition: transform 0.3s;
+   }
+   .gallery-item:hover {
+   transform: scale(1.03);
+   }
+   .gallery-item img {
+   width: 100%;
+   height: 250px;
+   object-fit: cover;
+   display: block;
+   transition: transform 0.3s;
+   }
+   .gallery-item:hover img {
+   transform: scale(1.1);
+   }
+   .gallery-overlay {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.6);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   opacity: 0;
+   transition: opacity 0.3s;
+   }
+   .gallery-item:hover .gallery-overlay {
+   opacity: 1;
+   }
+   .gallery-overlay i {
+   color: var(--primary);
+   font-size: 3rem;
+   }
+   /* قسم الذكاء الاصطناعي */
+   .ai-section {
+   background-color: var(--background);
+   }
+   .ai-assistant {
+   background-color: var(--card-bg);
+   border-radius: 10px;
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+   max-width: 600px;
+   margin: 0 auto;
+   display: flex;
+   flex-direction: column;
+   border: 1px solid var(--border-color);
+   }
+   .assistant-header {
+   background-color: var(--primary);
+   color: var(--secondary);
+   padding: 15px 20px;
+   border-radius: 10px 10px 0 0;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   font-size: 1.3rem;
+   }
+   .chat-container {
+   flex-grow: 1;
+   padding: 20px;
+   min-height: 300px;
+   max-height: 400px; /* لتقييد الارتفاع وجعلها قابلة للتمرير */
+   overflow-y: auto; /* شريط تمرير عمودي */
+   display: flex;
+   flex-direction: column;
+   gap: 15px;
+   border-bottom: 1px solid var(--border-color);
+   }
+   .message {
+   max-width: 80%;
+   padding: 10px 15px;
+   border-radius: 15px;
+   word-wrap: break-word; /* يضمن كسر الكلمات الطويلة */
+   }
+   .user-message {
+   background-color: var(--ai-blue);
+   color: white;
+   align-self: flex-end; /* لمحاذاة رسائل المستخدم لليمين */
+   border-bottom-right-radius: 0;
+   }
+   .bot-message {
+   background-color: var(--ai-purple);
+   color: white;
+   align-self: flex-start; /* لمحاذاة رسائل الروبوت لليسار */
+   border-bottom-left-radius: 0;
+   }
+   .chat-input {
+   display: flex;
+   padding: 15px 20px;
+   gap: 10px;
+   }
+   .chat-input input {
+   flex-grow: 1;
+   padding: 10px 15px;
+   border: 1px solid var(--border-color);
+   border-radius: 25px;
+   background-color: var(--background);
+   color: var(--text);
+   font-size: 1rem;
+   }
+   .chat-input input::placeholder {
+   color: rgba(255, 255, 255, 0.5);
+   }
+   .chat-input button {
+   background-color: var(--primary);
+   color: var(--secondary);
+   border: none;
+   padding: 10px 20px;
+   border-radius: 25px;
+   cursor: pointer;
+   font-size: 1rem;
+   transition: background-color 0.3s, color 0.3s;
+   }
+   .chat-input button:hover {
+   background-color: var(--secondary);
+   color: var(--primary);
+   }
+   /* قسم التوصيات */
+   .recommendation-section {
+   background-color: var(--background);
+   }
+   .recommendation-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+   gap: 30px;
+   }
+   .recommendation-item {
+   background-color: var(--card-bg);
+   border-radius: 10px;
+   padding: 20px;
+   text-align: center;
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+   border: 1px solid var(--border-color);
+   transition: transform 0.3s, box-shadow 0.3s;
+   }
+   .recommendation-item:hover {
+   transform: translateY(-5px);
+   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+   }
+   .recommendation-item img {
+   width: 100px;
+   height: 100px;
+   border-radius: 50%;
+   object-fit: cover;
+   margin-bottom: 15px;
+   border: 3px solid var(--primary);
+   }
+   .recommendation-item h4 {
+   font-size: 1.5rem;
+   color: var(--primary);
+   margin-bottom: 10px;
+   }
+   .recommendation-item p {
+   font-size: 0.95rem;
+   color: rgba(255, 255, 255, 0.8);
+   }
+   /* قسم الموسيقى */
+   .music-section {
+   background-color: var(--background);
+   text-align: center;
+   }
+   .music-section .container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 30px;
+   }
+   .music-player-controls {
+   display: flex;
+   gap: 20px;
+   margin-top: 20px;
+   }
+   .music-player-controls button {
+   background-color: var(--secondary);
+   color: var(--primary);
+   border: none;
+   padding: 12px 25px;
+   border-radius: 8px;
+   font-size: 1.1rem;
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   transition: background-color 0.3s, color 0.3s;
+   }
+   .music-player-controls button:hover {
+   background-color: var(--primary);
+   color: var(--secondary);
+   }
+   .music-player-controls button i {
+   font-size: 1.3rem;
+   }
+   /* قسم التواصل معنا */
+   .contact-section {
+   background-color: var(--background);
+   }
+   .contact-content {
+   display: flex;
+   gap: 50px;
+   flex-wrap: wrap; /* تسمح للعناصر بالانتقال إلى سطر جديد */
+   justify-content: center;
+   }
+   .contact-form {
+   flex: 2; /* تأخذ مساحة أكبر */
+   min-width: 300px;
+   background-color: var(--card-bg);
+   padding: 30px;
+   border-radius: 10px;
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+   border: 1px solid var(--border-color);
+   }
+   .contact-form h3 {
+   font-size: 2rem;
+   color: var(--primary);
+   margin-bottom: 25px;
+   text-align: center;
+   }
+   .form-group {
+   margin-bottom: 20px;
+   }
+   .form-group label {
+   display: block;
+   font-size: 1.1rem;
+   color: var(--text);
+   margin-bottom: 8px;
+   }
+   .form-group input,
+   .form-group textarea {
+   width: 100%;
+   padding: 12px;
+   background-color: var(--background);
+   border: 1px solid var(--border-color);
+   border-radius: 5px;
+   color: var(--text);
+   font-size: 1rem;
+   transition: border-color 0.3s;
+   }
+   .form-group input:focus,
+   .form-group textarea:focus {
+   outline: none;
+   border-color: var(--primary);
+   box-shadow: 0 0 5px var(--primary);
+   }
+   .form-group textarea {
+   resize: vertical; /* السماح بتغيير حجم مربع النص عمودياً */
+   min-height: 120px;
+   }
+   .submit-btn {
+   background-color: var(--primary);
+   color: var(--secondary);
+   border: none;
+   padding: 15px 30px;
+   border-radius: 8px;
+   font-size: 1.2rem;
+   cursor: pointer;
+   width: 100%;
+   transition: background-color 0.3s, color 0.3s;
+   }
+   .submit-btn:hover {
+   background-color: var(--secondary);
+   color: var(--primary);
+   }
+   .contact-info {
+   flex: 1; /* تأخذ مساحة أقل */
+   min-width: 280px;
+   background-color: var(--card-bg);
+   padding: 30px;
+   border-radius: 10px;
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+   border: 1px solid var(--border-color);
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+   }
+   .contact-info .info-item {
+   display: flex;
+   align-items: flex-start;
+   gap: 15px;
+   }
+   .info-icon {
+   font-size: 2rem;
+   color: var(--primary);
+   flex-shrink: 0; /* يمنع الأيقونة من التقلص */
+   }
+   .info-content h3 {
+   font-size: 1.5rem;
+   color: var(--primary);
+   margin-bottom: 5px;
+   }
+   .info-content p {
+   font-size: 1rem;
+   color: var(--text);
+   }
+   /* الفوتر (الجزء السفلي من الصفحة) */
+   footer {
+   background-color: var(--secondary);
+   color: var(--text);
+   padding: 40px 0 20px;
+   border-top: 5px solid var(--primary);
+   }
+   .footer-content {
+   display: flex;
+   justify-content: space-between;
+   flex-wrap: wrap;
+   gap: 30px;
+   margin-bottom: 30px;
+   }
+   .footer-column {
+   flex: 1;
+   min-width: 250px;
+   }
+   .footer-column h3 {
+   font-size: 1.8rem;
+   color: var(--primary);
+   margin-bottom: 20px;
+   position: relative;
+   padding-bottom: 5px;
+   }
+   .footer-column h3::after {
+   content: '';
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   width: 50px;
+   height: 3px;
+   background-color: var(--primary);
+   }
+   .footer-column p {
+   font-size: 0.95rem;
+   line-height: 1.8;
+   color: rgba(255, 255, 255, 0.8);
+   }
+   .social-links {
+   margin-top: 20px;
+   display: flex;
+   gap: 15px;
+   }
+   .social-links a {
+   color: var(--text);
+   font-size: 1.5rem;
+   transition: color 0.3s;
+   }
+   .social-links a:hover {
+   color: var(--primary);
+   }
+   .footer-column ul {
+   list-style: none;
+   }
+   .footer-column ul li {
+   margin-bottom: 10px;
+   }
+   .footer-column ul li a {
+   color: rgba(255, 255, 255, 0.8);
+   text-decoration: none;
+   transition: color 0.3s;
+   }
+   .footer-column ul li a:hover {
+   color: var(--primary);
+   }
+   .copyright {
+   text-align: center;
+   font-size: 0.9rem;
+   color: rgba(255, 255, 255, 0.6);
+   padding-top: 20px;
+   border-top: 1px solid rgba(255, 215, 0, 0.1);
+   }
+   /* الاستجابة لتناسب الشاشات الصغيرة */
+   @media (max-width: 768px) {
+   .control-bar {
+   flex-direction: column; /* ترتيب العناصر عموديا */
+   align-items: flex-start;
+   gap: 10px;
+   padding: 10px;
+   }
+   .control-group {
+   width: 100%;
+   justify-content: space-between;
+   }
+   .control-group:last-child {
+   justify-content: center; /* توسيط زر الموسيقى */
+   margin-top: 10px;
+   }
+   .navbar {
+   top: auto; /* إلغاء التثبيت العلوي */
+   position: relative;
+   padding: 1rem;
+   }
+   .navbar .container {
+   flex-direction: column;
+   gap: 20px;
+   }
+   .nav-links {
+   flex-wrap: wrap;
+   justify-content: center;
+   gap: 15px;
+   }
+   .nav-links a {
+   font-size: 1rem;
+   }
+   .banner-content h2 {
+   font-size: 2.5rem;
+   }
+   .banner-content p {
+   font-size: 1.2rem;
+   }
+   .section-title {
+   font-size: 2.2rem;
+   }
+   .menu-items, .gallery-grid, .recommendation-grid {
+   grid-template-columns: 1fr; /* عمود واحد على الشاشات الصغيرة */
+   }
+   .contact-content {
+   flex-direction: column;
+   }
+   .contact-form, .contact-info {
+   width: 100%;
+   min-width: unset; /* إزالة الحد الأدنى للعرض */
+   }
+   .cart-sidebar {
+   width: 100%; /* السلة تأخذ عرض الشاشة كاملا */
+   }
+   .footer-content {
+   flex-direction: column;
+   text-align: center;
+   }
+   .footer-column h3::after {
+   left: 50%;
+   transform: translateX(-50%);
+   }
+   .social-links {
+   justify-content: center;
+   }
+   }
+   </style>
+   </head>
+   <body>
+   <div class="floating-elements" id="floatingElements"></div>
+   <div class="control-bar">
+   <div class="control-group">
+   <button class="control-btn" id="themeBtn">
+   <i class="fas fa-palette"></i> <span data-lang-key="changeTheme">تغيير الثيم</span>
+   </button>
+   <select class="language-selector" id="languageSelector">
+   <option value="ar" data-lang-key="arabic">العربية</option>
+   <option value="en" data-lang-key="english">English</option>
+   <option value="fr" data-lang-key="french">Français</option>
+   <option value="it" data-lang-key="italian">Italiano</option>
+   <option value="pt" data-lang-key="portuguese">Português (BR)</option>
+   <option value="de" data-lang-key="german">Deutsch</option>
+   <option value="ja" data-lang-key="japanese">日本語</option>
+   <option value="zh" data-lang-key="chinese">中文</option>
+   <option value="ko" data-lang-key="korean">한국어</option>
+   </select>
+   <select class="theme-selector" id="themeSelector">
+   <option value="dark-gold" data-lang-key="darkGoldTheme">الذهبي الداكن</option>
+   <option value="light-blue" data-lang-key="lightBlueTheme">الأزرق الفاتح</option>
+   </select>
+   </div>
+   <div class="control-group">
+   <button class="control-btn" id="musicBtn">
+   <i class="fas fa-music"></i> <span data-lang-key="playMusic">تشغيل الموسيقى</span>
+   </button>
+   </div>
+   </div>
+   <audio id="backgroundMusic" loop> <source src="1.mp3" type="audio/mpeg"> متصفحك لا يدعم عنصر الصوت. </audio>
+   <nav class="navbar">
+   <div class="container">
+   <a href="#home" class="navbar-brand">
+   <i class="fas fa-utensils logo-icon"></i>
+   <div>
+   <span class="logo-text" data-lang-key="restaurantName">مطعم الأصالة اليمني</span>
+   <p class="slogan" data-lang-key="slogan">تجربة طعام لا تُنسى في قلب اليمن السعيد</p>
+   </div>
+   </a>
+   <ul class="nav-links">
+   <li><a href="#home" class="active"><i class="fas fa-home"></i> <span data-lang-key="home">الرئيسية</span></a></li>
+   <li><a href="#menu"><i class="fas fa-book-open"></i> <span data-lang-key="menu">قائمة الطعام</span></a></li>
+   <li><a href="#gallery"><i class="fas fa-images"></i> <span data-lang-key="gallery">معرض الصور</span></a></li>
+   <li><a href="#ai"><i class="fas fa-robot"></i> <span data-lang-key="ai">الذكاء الاصطناعي</span></a></li>
+   <li><a href="#music"><i class="fas fa-music"></i> <span data-lang-key="music">الموسيقى</span></a></li>
+   <li><a href="#contact"><i class="fas fa-envelope"></i> <span data-lang-key="contact">تواصل معنا</span></a></li>
+   </ul>
+   <button class="cart-toggle" id="cartToggle">
+   <i class="fas fa-shopping-cart"></i>
+   <span class="cart-count" id="cartCount">0</span>
+   </button>
+   </div>
+   </nav>
+   <div class="cart-sidebar" id="cartSidebar">
+   <div class="cart-header">
+   <h3 data-lang-key="cartTitle">سلة التسوق</h3>
+   <button class="close-cart" id="closeCart" data-lang-key="closeCart">إغلاق السلة</button>
+   </div>
+   <div class="cart-items" id="cartItemsContainer">
+   </div>
+   <div class="cart-footer">
+   <div class="cart-total">
+   <span data-lang-key="total">الإجمالي:</span>
+   <span class="total-price" id="cartTotalPrice">0 ريال يمني</span>
+   </div>
+   <button class="checkout-btn" data-lang-key="checkout">إتمام الشراء</button>
+   </div>
+   </div>
+   <section class="banner-section" id="home">
+   <div class="container banner-content">
+   <h2 data-lang-key="bestYemeniFood">أطيب المأكولات اليمنية</h2>
+   <p data-lang-key="slogan">تجربة طعام لا تُنسى في قلب اليمن السعيد</p>
+   <a href="#menu" class="btn" data-lang-key="exploreMenu">اكتشف قائمتنا</a>
+   </div>
+   </section>
+   <section class="menu-section" id="menu">
+   <div class="container">
+   <h2 class="section-title" data-lang-key="menuSectionTitle">قائمة طعامنا الشهية</h2>
+   <div class="menu-categories">
+   <button class="category-btn active" data-category="all" data-lang-key="all">الكل</button>
+   <button class="category-btn" data-category="main-dishes" data-lang-key="mainDishes">الأطباق الرئيسية</button>
+   <button class="category-btn" data-category="appetizers" data-lang-key="appetizers">المقبلات</button>
+   <button class="category-btn" data-category="desserts" data-lang-key="desserts">الحلويات</button>
+   <button class="category-btn" data-category="drinks" data-lang-key="drinks">المشروبات</button>
+   </div>
+   <div class="menu-items">
+   </div>
+   </div>
+   </section>
+   <section class="gallery-section" id="gallery">
+   <div class="container">
+   <h2 class="section-title" data-lang-key="gallerySectionTitle">استكشف معرض صورنا</h2>
+   <div class="gallery-grid">
+   <div class="gallery-item">
+   <img src="https://via.placeholder.com/600x400/FFD700/8B0000?text=Food+1" alt="طبق يمني 1">
+   <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+   </div>
+   <div class="gallery-item">
+   <img src="https://via.placeholder.com/600x400/8B0000/FFD700?text=Atmosphere+1" alt="أجواء المطعم 1">
+   <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+   </div>
+   <div class="gallery-item">
+   <img src="https://via.placeholder.com/600x400/FFD700/8B0000?text=Food+2" alt="طبق يمني 2">
+   <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+   </div>
+   <div class="gallery-item">
+   <img src="https://via.placeholder.com/600x400/8B0000/FFD700?text=Interior+1" alt="تصميم داخلي 1">
+   <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+   </div>
+   <div class="gallery-item">
+   <img src="https://via.placeholder.com/600x400/FFD700/8B0000?text=Drink+1" alt="مشروب 1">
+   <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+   </div>
+   <div class="gallery-item">
+   <img src="https://via.placeholder.com/600x400/8B0000/FFD700?text=Dessert+1" alt="حلوى 1">
+   <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+   </div>
+   </div>
+   </div>
+   </section>
+   <section class="ai-section" id="ai">
+   <div class="container">
+   <h2 class="section-title" data-lang-key="aiSectionTitle">الذكاء الاصطناعي في خدمتك</h2>
+   <div class="ai-assistant">
+   <div class="assistant-header">
+   <i class="fas fa-robot"></i>
+   <h3 data-lang-key="aiAssistant">مساعد الذكاء الاصطناعي</h3>
+   </div>
+   <div class="chat-container" id="chatContainer">
+   <div class="message bot-message">
+   <span data-lang-key="aiGreeting">مرحباً بك! كيف يمكنني مساعدتك اليوم؟</span>
+   </div>
+   </div>
+   <div class="chat-input">
+   <input type="text" id="userInput" placeholder="اسألني أي شيء عن المطعم..." data-lang-key="askMeAnything">
+   <button id="sendBtn" data-lang-key="send">إرسال</button>
+   </div>
+   </div>
+   </div>
+   </section>
+   <section class="recommendation-section" id="recommendation">
+   <div class="container">
+   <h2 class="section-title" data-lang-key="recommendationSectionTitle">مقترحات الذكاء الاصطناعي لك</h2>
+   <div class="recommendation-grid">
+   <div class="recommendation-item">
+   <img src="https://via.placeholder.com/100x100/FFD700/8B0000?text=Mandi" alt="المندي">
+   <h4>المندي اليمني</h4>
+   <p>إذا كنت تحب اللحم المطبوخ ببطء بنكهة غنية، فإن المندي هو الخيار الأمثل لك.</p>
+   </div>
+   <div class="recommendation-item">
+   <img src="https://via.placeholder.com/100x100/8B0000/FFD700?text=Saltah" alt="السلته">
+   <h4>السلته</h4>
+   <p>لذيذة ودافئة، مثالية لتجربة نكهة يمنية أصيلة مع خبز الملوح الطازج.</p>
+   </div>
+   <div class="recommendation-item">
+   <img src="https://via.placeholder.com/100x100/FFD700/8B0000?text=Aseeda" alt="العصيدة">
+   <h4>العصيدة</h4>
+   <p>طبق حلوى تقليدي بالقمح والعسل، مثالي لإنهاء وجبتك بنكهة مميزة.</p>
+   </div>
+   </div>
+   </div>
+   </section>
+   <section class="music-section" id="music">
+   <div class="container">
+   <h2 class="section-title" data-lang-key="musicSectionTitle">استمتع بأجواءنا الموسيقية</h2>
+   <p data-lang-key="musicDescription">استمع إلى مقطوعات مختارة من الموسيقى اليمنية التقليدية لتجربة غامرة.</p>
+   <div class="music-player-controls">
+   </div>
+   </div>
+   </section>
+   <section class="contact-section" id="contact">
+   <div class="container">
+   <h2 class="section-title" data-lang-key="contactSectionTitle">تواصل معنا</h2>
+   <div class="contact-content">
+   <div class="contact-form">
+   <h3 data-lang-key="sendMessage">أرسل لنا رسالة</h3>
+   <form>
+   <div class="form-group">
+   <label for="fullName" data-lang-key="fullName">الاسم الكامل:</label>
+   <input type="text" id="fullName" placeholder="ادخل اسمك الكامل" required>
+   </div>
+   <div class="form-group">
+   <label for="email" data-lang-key="yourEmail">بريدك الإلكتروني:</label>
+   <input type="email" id="email" placeholder="ادخل بريدك الإلكتروني" required>
+   </div>
+   <div class="form-group">
+   <label for="message" data-lang-key="yourMessage">رسالتك:</label>
+   <textarea id="message" placeholder="اكتب رسالتك هنا..." required></textarea>
+   </div>
+   <button type="submit" class="submit-btn" data-lang-key="sendMessage">إرسال الرسالة</button>
+   </form>
+   </div>
+   <div class="contact-info">
+   <div class="info-item">
+   <span class="info-icon"><i class="fas fa-map-marker-alt"></i></span>
+   <div class="info-content">
+   <h3 data-lang-key="address">العنوان</h3>
+   <p>صنعاء - شارع تعز - بجانب فندق فلسطين</p>
+   </div>
+   </div>
+   <div class="info-item">
+   <span class="info-icon"><i class="fas fa-phone-alt"></i></span>
+   <div class="info-content">
+   <h3 data-lang-key="phone">الهاتف</h3>
+   <p>+967 777 123 456</p>
+   </div>
+   </div>
+   <div class="info-item">
+   <span class="info-icon"><i class="fas fa-envelope"></i></span>
+   <div class="info-content">
+   <h3 data-lang-key="email">البريد الإلكتروني</h3>
+   <p>info@yemenirestaurant.com</p>
+   </div>
+   </div>
+   </div>
+   </div>
+   </div>
+   </section>
+   <footer>
+   <div class="container footer-content">
+   <div class="footer-column">
+   <h3>مطعم الأصالة اليمني</h3>
+   <p>نقدم لكم أشهى المأكولات اليمنية التقليدية الأصيلة التي تعكس كرم الضيافة وعراقة التاريخ. تجربة طعام لا تُنسى في أجواء يمنية أصيلة.</p>
+   <div class="social-links">
+   <a href="#"><i class="fab fa-facebook-f"></i></a>
+   <a href="#"><i class="fab fa-instagram"></i></a>
+   <a href="#"><i class="fab fa-twitter"></i></a>
+   <a href="#"><i class="fab fa-youtube"></i></a>
+   </div>
+   </div>
+   <div class="footer-column">
+   <h3 data-lang-key="contact">تواصل معنا</h3>
+   <div class="info-item">
+   <span class="info-icon"><i class="fas fa-map-marker-alt"></i></span>
+   <div class="info-content">
+   <p>صنعاء - شارع تعز - بجانب فندق فلسطين</p>
+   </div>
+   </div>
+   <div class="info-item">
+   <span class="info-icon"><i class="fas fa-phone-alt"></i></span>
+   <div class="info-content">
+   <p>+967 777 123 456</p>
+   </div>
+   </div>
+   <div class="info-item">
+   <span class="info-icon"><i class="fas fa-envelope"></i></span>
+   <div class="info-content">
+   <p>info@yemenirestaurant.com</p>
+   </div>
+   </div>
+   </div>
+   </div>
+   <div class="copyright">
+   <span data-lang-key="copyright">جميع الحقوق محفوظة لمطعم الأصالة اليمني</span> <span id="currentYear"></span>.
+   </div>
+   </footer>
+   <script>
+      // ###########################################
+      // # قسم التحكم باللغة والثيم والعناصر العائمة #
+      // ###########################################
+      
+      // تعريف كائن الترجمات للغات المختلفة
+      const translations = {
+          ar: { // اللغة العربية
+              changeTheme: 'تغيير الثيم',
+              playMusic: 'تشغيل الموسيقى',
+              pauseMusic: 'إيقاف الموسيقى', // جديد: نص لإيقاف الموسيقى
+              darkGoldTheme: 'الذهبي الداكن',
+              lightBlueTheme: 'الأزرق الفاتح',
+              restaurantName: 'مطعم الأصالة اليمني',
+              slogan: 'تجربة طعام لا تُنسى في قلب اليمن السعيد',
+              home: 'الرئيسية',
+              menu: 'قائمة الطعام',
+              gallery: 'معرض الصور',
+              ai: 'الذكاء الاصطناعي',
+              music: 'الموسيقى',
+              contact: 'تواصل معنا',
+              bestYemeniFood: 'أطيب المأكولات اليمنية',
+              exploreMenu: 'اكتشف قائمتنا',
+              menuSectionTitle: 'قائمة طعامنا الشهية',
+              all: 'الكل',
+              mainDishes: 'الأطباق الرئيسية',
+              appetizers: 'المقبلات',
+              desserts: 'الحلويات',
+              drinks: 'المشروبات',
+              addToCart: 'أضف إلى السلة',
+              gallerySectionTitle: 'استكشف معرض صورنا',
+              aiSectionTitle: 'الذكاء الاصطناعي في خدمتك',
+              smartRecommendations: 'توصيات ذكية',
+              aiAssistant: 'مساعد الذكاء الاصطناعي',
+              askMeAnything: 'اسألني أي شيء عن المطعم...',
+              send: 'إرسال',
+              recommendationSectionTitle: 'مقترحات الذكاء الاصطناعي لك',
+              cartTitle: 'سلة التسوق',
+              closeCart: 'إغلاق السلة',
+              total: 'الإجمالي',
+              checkout: 'إتمام الشراء',
+              musicSectionTitle: 'استمتع بأجواءنا الموسيقية',
+              musicDescription: 'استمع إلى مقطوعات مختارة من الموسيقى اليمنية التقليدية لتجربة غامرة.', // جديد: وصف لقسم الموسيقى
+              contactSectionTitle: 'تواصل معنا',
+              fullName: 'الاسم الكامل',
+              yourEmail: 'بريدك الإلكتروني',
+              yourMessage: 'رسالتك',
+              sendMessage: 'إرسال الرسالة',
+              address: 'العنوان',
+              phone: 'الهاتف',
+              email: 'البريد الإلكتروني',
+              quickLinks: 'روابط سريعة',
+              aboutUs: 'عن المطعم',
+              privacyPolicy: 'سياسة الخصوصية',
+              termsOfService: 'شروط الخدمة',
+              copyright: 'جميع الحقوق محفوظة لمطعم الأصالة اليمني',
+              itemAddedToCart: 'تمت إضافة العنصر إلى السلة!',
+              itemRemoved: 'تم حذف العنصر من السلة.',
+              quantityUpdated: 'تم تحديث الكمية.',
+              cartEmpty: 'سلتك فارغة.', // جديد: نص عندما تكون السلة فارغة
+              // ترجمة أسماء الأطباق وأوصافها
+              yemeniMandi: 'المندي اليمني',
+              mandiDescription: 'لحم ضأن أو دجاج يُطهى ببطء في فرن تحت الأرض للحصول على نكهة مدخنة ورائحة فريدة.',
+              saltah: 'السلته',
+              saltahDescription: 'طبق يمني تقليدي مصنوع من مرق اللحم والخضروات والحلبه، يقدم ساخنًا مع الخبز.',
+              fattoush: 'الفتوش',
+              fattoushDescription: 'سلطة شرق أوسطية منعشة مع الخبز المحمص والخضروات الطازجة.',
+              kunafa: 'الكنافة',
+              kunafaDescription: 'حلويات شرق أوسطية شهيرة مصنوعة من عجينة الكنافة الناعمة والجبن.',
+              icedTea: 'الشاي المثلج',
+              icedTeaDescription: 'شاي منعش يقدم باردًا مع الثلج والليمون.',
+              kabsa: 'الكبسة',
+              kabsaDescription: 'طبق أرز شهير مع اللحم والتوابل العطرية.',
+              sambosa: 'السمبوسة',
+              sambosaDescription: 'معجنات مقلية محشوة باللحم المفروم أو الخضروات.',
+              maasoob: 'المعصوب',
+              maasoobDescription: 'طبق حلو مصنوع من الموز المهروس والخبز والقشطة والعسل.',
+              lemonMint: 'ليمون بالنعناع',
+              lemonMintDescription: 'مشروب منعش من الليمون الطازج والنعناع.',
+              // إجابات الذكاء الاصطناعي
+              aiGreeting: 'مرحباً بك! كيف يمكنني مساعدتك اليوم؟', // جديد: نص ترحيب AI
+              aiAnswer1: 'نحن نقدم مجموعة واسعة من الأطباق اليمنية الأصيلة بما في ذلك المندي، السلته، والكبسة.',
+              aiAnswer2: 'نحن نفتح أبوابنا من الساعة 10 صباحًا حتى 11 مساءً يوميًا.',
+              aiAnswer3: 'نعم، يمكنك حجز طاولة عبر قسم "تواصل معنا" أو الاتصال بنا مباشرة.',
+              aiAnswer4: 'نقدم خدمة التوصيل للمنازل في جميع أنحاء المدينة.',
+              aiAnswer5: 'تشمل طرق الدفع لدينا الدفع نقدًا، البطاقات الائتمانية، والدفع الإلكتروني.',
+              aiAnswerDefault: 'عذرًا، لم أفهم سؤالك. يرجى إعادة الصياغة أو طرح سؤال آخر.',
+          },
+          en: { // اللغة الإنجليزية
+              changeTheme: 'Change Theme',
+              playMusic: 'Play Music',
+              pauseMusic: 'Pause Music',
+              darkGoldTheme: 'Dark Gold',
+              lightBlueTheme: 'Light Blue',
+              restaurantName: 'Al-Asalah Yemeni Restaurant',
+              slogan: 'An unforgettable dining experience in the heart of Happy Yemen',
+              home: 'Home',
+              menu: 'Menu',
+              gallery: 'Gallery',
+              ai: 'AI',
+              music: 'Music',
+              contact: 'Contact Us',
+              bestYemeniFood: 'The Best Yemeni Cuisine',
+              exploreMenu: 'Explore Our Menu',
+              menuSectionTitle: 'Our Delicious Menu',
+              all: 'All',
+              mainDishes: 'Main Dishes',
+              appetizers: 'Appetizers',
+              desserts: 'Desserts',
+              drinks: 'Drinks',
+              addToCart: 'Add to Cart',
+              gallerySectionTitle: 'Explore Our Photo Gallery',
+              aiSectionTitle: 'AI at Your Service',
+              smartRecommendations: 'Smart Recommendations',
+              aiAssistant: 'AI Assistant',
+              askMeAnything: 'Ask me anything about the restaurant...',
+              send: 'Send',
+              recommendationSectionTitle: 'AI Suggestions for You',
+              cartTitle: 'Shopping Cart',
+              closeCart: 'Close Cart',
+              total: 'Total',
+              checkout: 'Checkout',
+              musicSectionTitle: 'Enjoy Our Musical Ambiance',
+              musicDescription: 'Listen to selected pieces of traditional Yemeni music for an immersive experience.',
+              contactSectionTitle: 'Contact Us',
+              fullName: 'Full Name',
+              yourEmail: 'Your Email',
+              yourMessage: 'Your Message',
+              sendMessage: 'Send Message',
+              address: 'Address',
+              phone: 'Phone',
+              email: 'Email',
+              quickLinks: 'Quick Links',
+              aboutUs: 'About Us',
+              privacyPolicy: 'Privacy Policy',
+              termsOfService: 'Terms of Service',
+              copyright: 'All rights reserved to Al-Asalah Yemeni Restaurant',
+              itemAddedToCart: 'Item added to cart!',
+              itemRemoved: 'Item removed from cart.',
+              quantityUpdated: 'Quantity updated.',
+              cartEmpty: 'Your cart is empty.',
+              yemeniMandi: 'Yemeni Mandi',
+              mandiDescription: 'Lamb or chicken slow-cooked in an underground oven for a smoky flavor.',
+              saltah: 'Saltah',
+              saltahDescription: 'Traditional Yemeni stew made with meat broth, vegetables, and fenugreek.',
+              fattoush: 'Fattoush',
+              fattoushDescription: 'Refreshing Middle Eastern salad with toasted bread and fresh vegetables.',
+              kunafa: 'Kunafa',
+              kunafaDescription: 'Popular Middle Eastern dessert made with fine pastry and cheese.',
+              icedTea: 'Iced Tea',
+              icedTeaDescription: 'Refreshing tea served cold with ice and lemon.',
+              kabsa: 'Kabsa',
+              kabsaDescription: 'A popular rice dish with meat and aromatic spices.',
+              sambosa: 'Sambosa',
+              sambosaDescription: 'Fried pastries filled with minced meat or vegetables.',
+              maasoob: 'Ma\'soob',
+              maasoobDescription: 'A sweet dish made from mashed bananas, bread, cream, and honey.',
+              lemonMint: 'Lemon with Mint',
+              lemonMintDescription: 'A refreshing drink of fresh lemon and mint.',
+              aiGreeting: 'Hello! How can I assist you today?',
+              aiAnswer1: 'We offer a wide range of authentic Yemeni dishes including Mandi, Saltah, and Kabsa.',
+              aiAnswer2: 'We are open daily from 10 AM to 11 PM.',
+              aiAnswer3: 'Yes, you can reserve a table through our "Contact Us" section or by calling us directly.',
+              aiAnswer4: 'We provide home delivery service throughout the city.',
+              aiAnswer5: 'Our payment methods include cash, credit cards, and online payment.',
+              aiAnswerDefault: 'Sorry, I did not understand your question. Please rephrase or ask another question.',
+          },
+          // يمكنك إضافة المزيد من اللغات هنا بنفس الهيكل
+      };
+      
+      // تعريف كائن للثيمات المختلفة مع متغيرات CSS (الألوان)
+      const themes = {
+          'dark-gold': { // الثيم الذهبي الداكن (الافتراضي)
+              '--primary': '#FFD700',
+              '--secondary': '#8B0000',
+              '--accent': '#e67e22',
+              '--background': '#1a1a1a',
+              '--text': '#f5f5f5',
+              '--ai-blue': '#4d8af0',
+              '--ai-purple': '#8a4dff',
+              '--card-bg': 'rgba(255, 255, 255, 0.05)',
+              '--border-color': 'rgba(255, 215, 0, 0.15)',
+          },
+          'light-blue': { // الثيم الأزرق الفاتح
+              '--primary': '#007bff',
+              '--secondary': '#0056b3',
+              '--accent': '#17a2b8',
+              '--background': '#e0f2f7',
+              '--text': '#333',
+              '--ai-blue': '#28a745',
+              '--ai-purple': '#20c997',
+              '--card-bg': 'rgba(255, 255, 255, 0.9)',
+              '--border-color': 'rgba(0, 123, 255, 0.3)',
+          },
+      };
+      
+      let currentLang = 'ar'; // اللغة الافتراضية عند تحميل الصفحة
+      let currentTheme = 'dark-gold'; // الثيم الافتراضي عند تحميل الصفحة
+      
+      // الحصول على عناصر التحكم باللغة والثيم
+      const languageSelector = document.getElementById('languageSelector');
+      const themeSelector = document.getElementById('themeSelector');
+      
+      // دالة لتطبيق الترجمات على جميع العناصر التي تحتوي على 'data-lang-key'
+      function applyTranslations() {
+          // تحديث خاصية dir في وسم <html> (rtl للعربية، ltr للغات الأخرى)
+          document.documentElement.dir = (currentLang === 'ar') ? 'rtl' : 'ltr';
+          // تحديث خاصية lang في وسم <html>
+          document.documentElement.lang = currentLang;
+      
+          // تحديث النصوص بناءً على مفاتيح البيانات (data-lang-key)
+          document.querySelectorAll('[data-lang-key]').forEach(element => {
+              const key = element.getAttribute('data-lang-key');
+              if (translations[currentLang] && translations[currentLang][key]) {
+                  element.textContent = translations[currentLang][key];
+              }
+          });
+      
+          // تحديث placeholder للعناصر المدخلة
+          document.querySelector('input[placeholder="ادخل اسمك الكامل"]').placeholder = translations[currentLang].fullName;
+          document.querySelector('input[placeholder="ادخل بريدك الإلكتروني"]').placeholder = translations[currentLang].yourEmail;
+          document.querySelector('textarea[placeholder="اكتب رسالتك هنا..."]').placeholder = translations[currentLang].yourMessage;
+          document.querySelector('.chat-input input').placeholder = translations[currentLang].askMeAnything;
+          
+          // تحديث السنة في حقوق النشر
+          document.getElementById('currentYear').textContent = new Date().getFullYear();
+      
+          // إعادة عرض عناصر القائمة وتحديث السلة بعد تغيير اللغة لضمان ترجمة أسمائها وأوصافها
+          displayMenuItems(document.querySelector('.category-btn.active').dataset.category);
+          updateCartDisplay();
+      }
+      
+      // دالة لتطبيق الثيم المحدد (تغيير متغيرات CSS)
+      function applyTheme(themeName) {
+          const root = document.documentElement; // الحصول على عنصر الجذر HTML (<html>)
+          const selectedTheme = themes[themeName]; // الحصول على كائن الثيم من مصفوفة 'themes'
+      
+          if (selectedTheme) { // إذا كان الثيم موجوداً
+              for (const key in selectedTheme) { // المرور على كل متغير (key) وقيمته (value) في الثيم المحدد
+                  root.style.setProperty(key, selectedTheme[key]); // تعيين خاصية CSS لكل متغير
+              }
+              document.body.className = `theme-${themeName}`; // إضافة فئة للجسم (مثل 'theme-light-blue') لتطبيق أنماط CSS الخاصة بالثيم
+              currentTheme = themeName; // تحديث الثيم الحالي
+          }
+      }
+      
+      // معالج حدث عند تغيير اللغة من قائمة الاختيار
+      languageSelector.addEventListener('change', (event) => {
+          currentLang = event.target.value; // تحديث اللغة الحالية بناءً على اختيار المستخدم
+          applyTranslations(); // استدعاء دالة تطبيق الترجمات
+      });
+      
+      // معالج حدث عند تغيير الثيم من قائمة الاختيار
+      themeSelector.addEventListener('change', (event) => {
+          applyTheme(event.target.value); // استدعاء دالة تطبيق الثيم
+      });
+      
+      // وظيفة لإنشاء عناصر عائمة في الخلفية (تأثير بصري)
+      function createFloatingElements() {
+          const container = document.getElementById('floatingElements');
+          for (let i = 0; i < 10; i++) { // إنشاء 10 عناصر عائمة
+              const element = document.createElement('div');
+              element.classList.add('floating-element');
+              // تعيين حجم وموضع عشوائي
+              element.style.width = `${Math.random() * 50 + 20}px`;
+              element.style.height = element.style.width;
+              element.style.left = `${Math.random() * 100}%`;
+              element.style.top = `${Math.random() * 100}%`;
+              // تأخير بدء الحركة لكل عنصر
+              element.style.animationDelay = `${Math.random() * 5}s`;
+              element.style.animationDuration = `${Math.random() * 10 + 5}s`;
+              container.appendChild(element);
+          }
+      }
+      
+      // ################################
+      // # قسم قائمة الطعام والسلة #
+      // ################################
+      
+      // تعريف كائن بيانات لعناصر القائمة (المنتجات)
+      const menuItemsData = [
+          {
+              id: 'mandi', // معرف فريد للعنصر
+              nameKey: 'yemeniMandi', // مفتاح الترجمة لاسم الطبق
+              descriptionKey: 'mandiDescription', // مفتاح الترجمة لوصف الطبق
+              price: 5000, // سعر الطبق
+              image: 'https://via.placeholder.com/400x250/FFD700/8B0000?text=Mandi', // رابط صورة توضيحية (استبدلها بصورك)
+              category: 'main-dishes' // فئة الطبق
+          },
+          {
+              id: 'saltah',
+              nameKey: 'saltah',
+              descriptionKey: 'saltahDescription',
+              price: 3500,
+              image: 'https://via.placeholder.com/400x250/FFD700/8B0000?text=Saltah',
+              category: 'main-dishes'
+          },
+          {
+              id: 'fattoush',
+              nameKey: 'fattoush',
+              descriptionKey: 'fattoushDescription',
+              price: 1500,
+              image: 'https://via.placeholder.com/400x250/FFD700/8B0000?text=Fattoush',
+              category: 'appetizers'
+          },
+          {
+              id: 'kunafa',
+              nameKey: 'kunafa',
+              descriptionKey: 'kunafaDescription',
+              price: 2000,
+              image: 'https://via.placeholder.com/400x250/FFD700/8B0000?text=Kunafa',
+              category: 'desserts'
+          },
+          {
+              id: 'iced-tea',
+              nameKey: 'icedTea',
+              descriptionKey: 'icedTeaDescription',
+              price: 800,
+              image: 'https://via.placeholder.com/400x250/FFD700/8B0000?text=Iced+Tea',
+              category: 'drinks'
+          },
+          {
+              id: 'kabsa',
+              nameKey: 'kabsa',
+              descriptionKey: 'kabsaDescription',
+              price: 4500,
+              image: 'https://via.placeholder.com/400x250/FFD700/8B0000?text=Kabsa',
+              category: 'main-dishes'
+          },
+          {
+              id: 'sambosa',
+              nameKey: 'sambosa',
+              descriptionKey: 'sambosaDescription',
+              price: 1000,
+              image: 'https://via.placeholder.com/400x250/FFD700/8B0000?text=Sambosa',
+              category: 'appetizers'
+          },
+          {
+              id: 'maasoob',
+              nameKey: 'maasoob',
+              descriptionKey: 'maasoobDescription',
+              price: 2500,
+              image: 'https://via.placeholder.com/400x250/FFD700/8B0000?text=Maasoob',
+              category: 'desserts'
+          },
+          {
+              id: 'lemon-mint',
+              nameKey: 'lemonMint',
+              descriptionKey: 'lemonMintDescription',
+              price: 1200,
+              image: 'https://via.placeholder.com/400x250/FFD700/8B0000?text=Lemon+Mint',
+              category: 'drinks'
+          },
+      ];
+      
+      // الحصول على عناصر DOM الخاصة بقائمة الطعام والسلة
+      const menuItemsContainer = document.querySelector('.menu-items'); // حاوية عرض عناصر القائمة
+      const categoryBtns = document.querySelectorAll('.category-btn'); // أزرار الفئات
+      const cartToggleBtn = document.getElementById('cartToggle'); // زر فتح/إغلاق السلة
+      const cartSidebar = document.getElementById('cartSidebar'); // شريط السلة الجانبي
+      const closeCartBtn = document.getElementById('closeCart'); // زر إغلاق السلة
+      const cartCountSpan = document.getElementById('cartCount'); // عداد العناصر في السلة
+      const cartItemsContainer = document.getElementById('cartItemsContainer'); // حاوية عرض عناصر السلة
+      const cartTotalPriceSpan = document.getElementById('cartTotalPrice'); // عنصر عرض إجمالي السلة
+      const checkoutBtn = document.querySelector('.checkout-btn'); // زر إتمام الشراء
+      
+      let cartItems = []; // مصفوفة لتخزين العناصر المضافة إلى السلة (كل عنصر يحتوي على id و quantity)
+      
+      // دالة لفتح/إغلاق السلة الجانبية
+      cartToggleBtn.addEventListener('click', () => {
+          cartSidebar.classList.toggle('active'); // تبديل فئة 'active' التي تتحكم في ظهور السلة
+      });
+      
+      // دالة لإغلاق السلة الجانبية
+      closeCartBtn.addEventListener('click', () => {
+          cartSidebar.classList.remove('active'); // إزالة فئة 'active' لإخفاء السلة
+      });
+      
+      // دالة لعرض عناصر القائمة بناءً على الفئة المختارة
+      function displayMenuItems(category = 'all') { // تقبل الفئة كمعامل، الافتراضي هو 'all' (الكل)
+          menuItemsContainer.innerHTML = ''; // مسح المحتوى الحالي لحاوية القائمة قبل إضافة عناصر جديدة
+      
+          // تصفية العناصر: إذا كانت الفئة 'all'، اعرض الكل، وإلا فاعرض العناصر التي تطابق الفئة
+          const filteredItems = category === 'all' ? menuItemsData : menuItemsData.filter(item => item.category === category);
+      
+          filteredItems.forEach(item => { // المرور على كل عنصر مصفى
+              const menuItem = document.createElement('div'); // إنشاء عنصر <div> جديد لكل طبق
+              menuItem.classList.add('menu-item'); // إضافة فئة 'menu-item' لأنماط CSS
+      
+              // بناء هيكل HTML لعنصر الطبق باستخدام الـ template literals
+              menuItem.innerHTML = `
+                  <div class="item-image">
+                      <img src="${item.image}" alt="${translations[currentLang][item.nameKey]}">
+                  </div>
+                  <div class="item-details">
+                      <h3 class="item-title" data-lang-key="${item.nameKey}">${translations[currentLang][item.nameKey]}</h3>
+                      <p class="item-description" data-lang-key="${item.descriptionKey}">${translations[currentLang][item.descriptionKey]}</p>
+                      <div class="item-price">${item.price.toLocaleString()} ريال يمني</div> <button class="add-to-cart" data-id="${item.id}" data-lang-key="addToCart">
+                          <i class="fas fa-shopping-cart"></i> ${translations[currentLang].addToCart}
+                      </button>
+                  </div>
+              `;
+              menuItemsContainer.appendChild(menuItem); // إضافة الطبق المُنشأ إلى حاوية القائمة
+          });
+      
+          // إضافة معالجات الأحداث لجميع أزرار "أضف إلى السلة" الجديدة (لأنها تُعاد إنشاؤها في كل مرة يتم فيها تغيير الفئة)
+          document.querySelectorAll('.add-to-cart').forEach(button => {
+              button.addEventListener('click', (event) => {
+                  const itemId = event.currentTarget.dataset.id; // الحصول على معرف العنصر من خاصية data-id
+                  addToCart(itemId); // استدعاء دالة إضافة إلى السلة
+              });
+          });
+      
+          // إعادة تطبيق الترجمات على العناصر الجديدة التي تم إنشاؤها ديناميكياً
+          applyTranslations();
+      }
+      
+      // معالجات الأحداث لأزرار الفئات (للفلترة)
+      categoryBtns.forEach(button => { // المرور على كل زر فئة
+          button.addEventListener('click', () => { // إضافة مستمع حدث عند النقر على الزر
+              categoryBtns.forEach(btn => btn.classList.remove('active')); // إزالة الفئة 'active' من جميع الأزرار الأخرى
+              button.classList.add('active'); // إضافة الفئة 'active' للزر الحالي المختار
+              const category = button.dataset.category; // الحصول على فئة الزر من خاصية data-category
+              displayMenuItems(category); // استدعاء دالة عرض عناصر القائمة مع الفئة المختارة
+          });
+      });
+      
+      // دالة لتحديث عرض السلة (إعادة رسم عناصر السلة والإجمالي)
+      function updateCartDisplay() {
+          cartItemsContainer.innerHTML = ''; // مسح جميع العناصر الموجودة حاليًا في عرض السلة
+          let totalPrice = 0; // تهيئة متغير لحساب السعر الإجمالي
+      
+          if (cartItems.length === 0) { // إذا كانت السلة فارغة
+              cartItemsContainer.innerHTML = `<p style="text-align: center; color: rgba(255,255,255,0.7);" data-lang-key="cartEmpty">${translations[currentLang].cartEmpty}</p>`;
+          } else { // إذا كانت السلة تحتوي على عناصر
+              cartItems.forEach(item => { // المرور على كل عنصر في مصفوفة السلة
+                  const menuItemData = menuItemsData.find(menuItem => menuItem.id === item.id); // البحث عن بيانات العنصر من قائمة الطعام الأصلية
+      
+                  if (menuItemData) { // التأكد من أن بيانات العنصر موجودة
+                      const cartItemDiv = document.createElement('div'); // إنشاء عنصر <div> جديد لكل عنصر في السلة
+                      cartItemDiv.classList.add('cart-item'); // إضافة فئة CSS 'cart-item'
+      
+                      // بناء هيكل HTML لعنصر السلة
+                      cartItemDiv.innerHTML = `
+                          <div class="cart-item-image">
+                              <img src="${menuItemData.image}" alt="${translations[currentLang][menuItemData.nameKey]}">
+                          </div>
+                          <div class="cart-item-details">
+                              <h4 class="cart-item-title">${translations[currentLang][menuItemData.nameKey]}</h4>
+                              <p class="cart-item-price">${menuItemData.price.toLocaleString()} ريال يمني</p>
+                              <div class="cart-item-quantity">
+                                  <button class="quantity-btn decrease-quantity" data-id="${item.id}">-</button>
+                                  <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-id="${item.id}">
+                                  <button class="quantity-btn increase-quantity" data-id="${item.id}">+</button>
+                              </div>
+                              <button class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+                          </div>
+                      `;
+                      cartItemsContainer.appendChild(cartItemDiv); // إضافة عنصر السلة إلى حاويتها
+      
+                      totalPrice += menuItemData.price * item.quantity; // إضافة سعر العنصر (الكمية × السعر) إلى الإجمالي الكلي
+                  }
+              });
+          }
+      
+          cartCountSpan.textContent = cartItems.length; // تحديث عدد العناصر الفريدة في السلة
+          cartTotalPriceSpan.textContent = `${totalPrice.toLocaleString()} ريال يمني`; // تحديث السعر الإجمالي المعروض
+      
+          // إضافة معالجات الأحداث لأزرار الكمية وحذف العناصر (بعد إعادة إنشاء عناصر السلة)
+          document.querySelectorAll('.decrease-quantity').forEach(button => {
+              button.addEventListener('click', (event) => {
+                  const itemId = event.currentTarget.dataset.id;
+                  updateQuantity(itemId, -1); // إنقاص الكمية بـ 1
+              });
+          });
+      
+          document.querySelectorAll('.increase-quantity').forEach(button => {
+              button.addEventListener('click', (event) => {
+                  const itemId = event.currentTarget.dataset.id;
+                  updateQuantity(itemId, 1); // زيادة الكمية بـ 1
+              });
+          });
+      
+          document.querySelectorAll('.quantity-input').forEach(input => {
+              input.addEventListener('change', (event) => {
+                  const itemId = event.currentTarget.dataset.id;
+                  const newQuantity = parseInt(event.currentTarget.value); // تحويل القيمة المدخلة إلى عدد صحيح
+                  updateQuantity(itemId, 0, newQuantity); // تحديث الكمية مباشرة بالقيمة الجديدة
+              });
+          });
+      
+          document.querySelectorAll('.remove-item').forEach(button => {
+              button.addEventListener('click', (event) => {
+                  const itemId = event.currentTarget.dataset.id;
+                  removeFromCart(itemId); // حذف العنصر من السلة
+              });
+          });
+      }
+      
+      // دالة لإضافة عنصر إلى السلة
+      function addToCart(itemId) {
+          const existingItem = cartItems.find(item => item.id === itemId); // البحث عما إذا كان العنصر موجوداً بالفعل في السلة
+          if (existingItem) { // إذا كان العنصر موجوداً، قم بزيادة الكمية
+              existingItem.quantity++;
+          } else { // إذا لم يكن موجوداً، أضفه كعنصر جديد بكمية 1
+              cartItems.push({ id: itemId, quantity: 1 });
+          }
+          updateCartDisplay(); // تحديث عرض السلة بعد الإضافة
+          alert(translations[currentLang].itemAddedToCart); // تنبيه للمستخدم بنجاح الإضافة
+      }
+      
+      // دالة لتعديل كمية عنصر في السلة
+      function updateQuantity(itemId, change, newQuantity = null) {
+          const item = cartItems.find(cartItem => cartItem.id === itemId); // البحث عن العنصر في السلة
+          if (item) { // إذا تم العثور على العنصر
+              if (newQuantity !== null) { // إذا تم تحديد كمية جديدة (من حقل الإدخال)
+                  item.quantity = Math.max(1, newQuantity); // تأكد أن الكمية لا تقل عن 1
+              } else { // إذا كان التغيير +1 أو -1 (من أزرار الزيادة/النقصان)
+                  item.quantity += change;
+                  if (item.quantity < 1) { // إذا أصبحت الكمية أقل من 1، قم بحذف العنصر من السلة
+                      removeFromCart(itemId);
+                      return; // الخروج من الدالة بعد الحذف
+                  }
+              }
+              updateCartDisplay(); // تحديث عرض السلة بعد تعديل الكمية
+              alert(translations[currentLang].quantityUpdated); // تنبيه للمستخدم بتحديث الكمية
+          }
+      }
+      
+      // دالة لحذف عنصر من السلة
+      function removeFromCart(itemId) {
+          cartItems = cartItems.filter(item => item.id !== itemId); // إنشاء مصفوفة جديدة بدون العنصر المحدد
+          updateCartDisplay(); // تحديث عرض السلة بعد الحذف
+          alert(translations[currentLang].itemRemoved); // تنبيه للمستخدم بحذف العنصر
+      }
+      
+      // معالج حدث لزر إتمام الشراء
+      checkoutBtn.addEventListener('click', () => {
+          if (cartItems.length === 0) { // إذا كانت السلة فارغة
+              alert(translations[currentLang].cartEmpty);
+          } else { // إذا كانت السلة تحتوي على عناصر
+              alert(translations[currentLang].checkoutSuccess || `تم إتمام الشراء بنجاح! الإجمالي: ${cartTotalPriceSpan.textContent}`); // رسالة نجاح الشراء
+              cartItems = []; // تفريغ السلة
+              updateCartDisplay(); // تحديث عرض السلة بعد الشراء
+          }
+      });
+      
+      // ################################
+      // # قسم الموسيقى والذكاء الاصطناعي #
+      // ################################
+      
+      const backgroundMusic = document.getElementById('backgroundMusic'); // عنصر الصوت
+      const musicBtn = document.getElementById('musicBtn'); // زر تشغيل/إيقاف الموسيقى
+      
+      let isPlaying = false; // متغير لتتبع حالة تشغيل الموسيقى
+      
+      // معالج حدث لزر الموسيقى
+      musicBtn.addEventListener('click', () => {
+          if (isPlaying) { // إذا كانت الموسيقى قيد التشغيل
+              backgroundMusic.pause(); // إيقاف الموسيقى مؤقتًا
+              musicBtn.querySelector('span').textContent = translations[currentLang].playMusic; // تغيير نص الزر إلى "تشغيل"
+              musicBtn.classList.remove('playing'); // إزالة فئة 'playing' (يمكن استخدامها لتأثيرات CSS)
+          } else { // إذا كانت الموسيقى متوقفة
+              backgroundMusic.play(); // تشغيل الموسيقى
+              musicBtn.querySelector('span').textContent = translations[currentLang].pauseMusic; // تغيير نص الزر إلى "إيقاف"
+              musicBtn.classList.add('playing'); // إضافة فئة 'playing'
+          }
+          isPlaying = !isPlaying; // تبديل حالة التشغيل
+      });
+      
+      // عناصر الذكاء الاصطناعي
+      const userInput = document.getElementById('userInput'); // حقل إدخال سؤال المستخدم
+      const sendBtn = document.getElementById('sendBtn'); // زر إرسال السؤال
+      const chatContainer = document.getElementById('chatContainer'); // حاوية عرض رسائل الدردشة
+      
+      // وظيفة لإضافة رسالة إلى نافذة الدردشة (رسائل المستخدم أو الروبوت)
+      function addMessage(text, sender) {
+          const messageDiv = document.createElement('div'); // إنشاء عنصر <div> جديد للرسالة
+          messageDiv.classList.add('message', `${sender}-message`); // إضافة فئات CSS (message و user-message/bot-message)
+          messageDiv.textContent = text; // تعيين نص الرسالة
+          chatContainer.appendChild(messageDiv); // إضافة الرسالة إلى حاوية الدردشة
+          chatContainer.scrollTop = chatContainer.scrollHeight; // التمرير التلقائي لأسفل لعرض أحدث رسالة
+      }
+      
+      // وظيفة للتعامل مع أسئلة الذكاء الاصطناعي وتقديم الردود
+      function handleChat() {
+          const question = userInput.value.trim(); // الحصول على سؤال المستخدم وإزالة المسافات الزائدة
+          if (question === '') return; // إذا كان السؤال فارغاً، لا تفعل شيئاً
+      
+          addMessage(question, 'user'); // إضافة سؤال المستخدم إلى الدردشة
+      
+          userInput.value = ''; // مسح حقل الإدخال بعد الإرسال
+      
+          let botAnswer = translations[currentLang].aiAnswerDefault; // الإجابة الافتراضية للروبوت (إذا لم يجد تطابقاً)
+      
+          // قائمة أزواج الأسئلة-الإجابات (بناءً على اللغة الحالية)
+          // هذه الأجوبة هي قواعد بسيطة، وليست معالجة لغة طبيعية متقدمة
+          const qaPairs = [
+              { question: ['ما هي أطباقكم الرئيسية؟', 'ماذا تقدمون؟', 'ما الأكلات التي لديكم؟'], answer: translations[currentLang].aiAnswer1 },
+              { question: ['متى تفتحون؟', 'ما هي ساعات العمل؟', 'مواعيد العمل؟'], answer: translations[currentLang].aiAnswer2 },
+              { question: ['هل يمكنني حجز طاولة؟', 'كيف أحجز؟', 'حجز طاولة؟'], answer: translations[currentLang].aiAnswer3 },
+              { question: ['هل لديكم خدمة توصيل؟', 'توصلون للمنازل؟', 'توصيل الطلبات؟'], answer: translations[currentLang].aiAnswer4 },
+              { question: ['ما هي طرق الدفع؟', 'كيف أدفع؟', 'طرق الدفع؟'], answer: translations[currentLang].aiAnswer5 },
+          ];
+      
+          // البحث عن إجابة مناسبة عن طريق التحقق مما إذا كان سؤال المستخدم يحتوي على أي من الكلمات المفتاحية
+          for (const pair of qaPairs) {
+              // 'some' تتحقق مما إذا كان أي عنصر في مصفوفة 'question' موجوداً داخل 'question' المدخلة من المستخدم
+              const matched = pair.question.some(q => question.includes(q));
+              if (matched) {
+                  botAnswer = pair.answer; // إذا وجد تطابق، استخدم الإجابة المحددة
+                  break; // الخروج من الحلقة بعد العثور على أول تطابق
+              }
+          }
+      
+          // إضافة إجابة الروبوت بعد تأخير بسيط لمحاكاة التفكير (تأثير UX)
+          setTimeout(() => {
+              addMessage(botAnswer, 'bot');
+          }, 500);
+      }
+      
+      // معالج حدث لزر الإرسال في الدردشة
+      sendBtn.addEventListener('click', handleChat);
+      // معالج حدث عند الضغط على مفتاح 'Enter' في حقل الإدخال
+      userInput.addEventListener('keypress', (event) => {
+          if (event.key === 'Enter') {
+              handleChat();
+          }
+      });
+      
+      // ################################
+      // # وظائف التنقل والتأثيرات الإضافية #
+      // ################################
+      
+      // تفعيل الروابط النشطة في شريط التنقل بناءً على القسم المرئي
+      const navLinks = document.querySelectorAll('.nav-links a');
+      const sections = document.querySelectorAll('section');
+      
+      window.addEventListener('scroll', () => {
+          let current = ''; // لتخزين معرف القسم الحالي المرئي
+          sections.forEach(section => {
+              const sectionTop = section.offsetTop - 150; // الجزء العلوي من القسم، مع هامش لجعله نشطاً قبل الوصول إليه تماماً
+              const sectionHeight = section.clientHeight; // ارتفاع القسم
+              if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                  current = section.getAttribute('id'); // الحصول على معرف القسم
+              }
+          });
+      
+          navLinks.forEach(link => {
+              link.classList.remove('active'); // إزالة الفئة 'active' من جميع الروابط
+              if (link.getAttribute('href').includes(current)) { // إذا كان رابط التنقل يشير إلى القسم الحالي
+                  link.classList.add('active'); // إضافة الفئة 'active' للرابط الحالي
+              }
+          });
+      
+          // تأثير ظل على قسم التواصل عند التمرير إليه
+          const contactSection = document.getElementById('contact');
+          if (contactSection) { // التأكد من وجود القسم
+              const position = contactSection.getBoundingClientRect(); // الحصول على موضع القسم بالنسبة لنافذة العرض
+              if(position.top < window.innerHeight / 2 && position.bottom >= window.innerHeight / 2) {
+                  // تطبيق ظل مميز عندما يكون القسم في منتصف الشاشة تقريباً
+                  contactSection.style.boxShadow = '0 0 50px ' + getComputedStyle(document.documentElement).getPropertyValue('--primary');
+              } else {
+                  // إعادة الظل الافتراضي عند الخروج من المنتصف
+                  contactSection.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+              }
+          }
+      });
+      
+      // ################################
+      // # تهيئة الصفحة عند التحميل #
+      // ################################
+      
+      document.addEventListener('DOMContentLoaded', () => {
+          createFloatingElements(); // إنشاء العناصر العائمة
+          applyTranslations(); // تطبيق الترجمات الافتراضية (العربية)
+          applyTheme(currentTheme); // تطبيق الثيم الافتراضي (الذهبي الداكن)
+          displayMenuItems('all'); // عرض جميع عناصر القائمة
+          updateCartDisplay(); // تحديث عرض السلة لأول مرة
+      
+          // تعيين السنة الحالية في حقوق النشر
+          document.getElementById('currentYear').textContent = new Date().getFullYear();
+      });
+   </script>
+   </body>
+</html>

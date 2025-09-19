@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>تطبيق المحادثة المتقدم</title>
+      <link rel="shortcut icon" href="500x500.png" type="image/x-icon">
+      <style>
+         /* CSS متقدم ومطور */
+         :root {
+         --primary-color: #2563eb;
+         --secondary-color: #3b82f6;
+         --accent-color: #60a5fa;
+         --background-color: #ffffff;
+         --surface-color: #f8fafc;
+         --text-primary: #1e293b;
+         --text-secondary: #64748b;
+         --border-color: #e2e8f0;
+         --message-user: #2563eb;
+         --message-agent: #f1f5f9;
+         --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+         --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+         --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+         --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+         }
+         [data-theme="dark"] {
+         --background-color: #0f172a;
+         --surface-color: #1e293b;
+         --text-primary: #f1f5f9;
+         --text-secondary: #94a3b8;
+         --border-color: #334155;
+         --message-agent: #334155;
+         }
+         * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         }
+         body {
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+         color: var(--text-primary);
+         line-height: 1.6;
+         transition: var(--transition);
+         height: 100vh;
+         overflow: hidden;
+         }
+         .chat-app {
+         display: flex;
+         height: 100vh;
+         background: var(--background-color);
+         box-shadow: var(--shadow-lg);
+         border-radius: 16px;
+         overflow: hidden;
+         margin: 20px;
+         }
+         /* قائمة المحادثات */
+         .sidebar {
+         width: 350px;
+         background: var(--surface-color);
+         border-left: 1px solid var(--border-color);
+         display: flex;
+         flex-direction: column;
+         transition: var(--transition);
+         }
+         .sidebar-header {
+         padding: 20px;
+         background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+         color: white;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         }
+         .sidebar-header h2 {
+         font-size: 1.5rem;
+         font-weight: 700;
+         }
+         .user-profile {
+         display: flex;
+         align-items: center;
+         gap: 10px;
+         }
+         .avatar {
+         width: 40px;
+         height: 40px;
+         border-radius: 50%;
+         background: var(--accent-color);
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-weight: 600;
+         color: white;
+         font-size: 18px;
+         }
+         .status-indicator {
+         width: 12px;
+         height: 12px;
+         border-radius: 50%;
+         background: #10b981;
+         position: absolute;
+         bottom: 2px;
+         right: 2px;
+         border: 2px solid white;
+         animation: pulse 2s infinite;
+         }
+         @keyframes pulse {
+         0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+         70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+         100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+         }
+         .search-box {
+         padding: 15px 20px;
+         border-bottom: 1px solid var(--border-color);
+         }
+         .search-input {
+         width: 100%;
+         padding: 12px 16px;
+         border: 2px solid var(--border-color);
+         border-radius: 25px;
+         font-size: 14px;
+         background: var(--background-color);
+         color: var(--text-primary);
+         transition: var(--transition);
+         }
+         .search-input:focus {
+         outline: none;
+         border-color: var(--primary-color);
+         box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+         }
+         .conversations-list {
+         flex: 1;
+         overflow-y: auto;
+         padding: 10px;
+         }
+         .conversation-item {
+         display: flex;
+         align-items: center;
+         padding: 15px;
+         border-radius: 12px;
+         margin-bottom: 8px;
+         cursor: pointer;
+         transition: var(--transition);
+         position: relative;
+         }
+         .conversation-item:hover {
+         background: var(--background-color);
+         transform: translateX(-2px);
+         }
+         .conversation-item.active {
+         background: var(--primary-color);
+         color: white;
+         }
+         .conversation-avatar {
+         position: relative;
+         margin-left: 12px;
+         }
+         .conversation-info {
+         flex: 1;
+         }
+         .conversation-name {
+         font-weight: 600;
+         margin-bottom: 4px;
+         }
+         .conversation-last-message {
+         font-size: 14px;
+         color: var(--text-secondary);
+         white-space: nowrap;
+         overflow: hidden;
+         text-overflow: ellipsis;
+         }
+         .conversation-item.active .conversation-last-message {
+         color: rgba(255, 255, 255, 0.8);
+         }
+         .conversation-time {
+         font-size: 12px;
+         color: var(--text-secondary);
+         }
+         .unread-badge {
+         position: absolute;
+         top: 5px;
+         right: 5px;
+         background: #ef4444;
+         color: white;
+         border-radius: 50%;
+         width: 20px;
+         height: 20px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 12px;
+         font-weight: 600;
+         }
+         /* منطقة المحادثة */
+         .chat-area {
+         flex: 1;
+         display: flex;
+         flex-direction: column;
+         background: var(--background-color);
+         }
+         .chat-header {
+         padding: 20px;
+         background: var(--surface-color);
+         border-bottom: 1px solid var(--border-color);
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         }
+         .chat-header-info {
+         display: flex;
+         align-items: center;
+         gap: 15px;
+         }
+         .chat-header-name {
+         font-size: 1.2rem;
+         font-weight: 700;
+         }
+         .chat-header-status {
+         font-size: 14px;
+         color: var(--text-secondary);
+         }
+         .chat-actions {
+         display: flex;
+         gap: 10px;
+         }
+         .icon-btn {
+         width: 40px;
+         height: 40px;
+         border: none;
+         border-radius: 50%;
+         background: var(--background-color);
+         color: var(--text-primary);
+         cursor: pointer;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         transition: var(--transition);
+         font-size: 16px;
+         }
+         .icon-btn:hover {
+         background: var(--primary-color);
+         color: white;
+         transform: scale(1.1);
+         }
+         /* منطقة الرسائل */
+         .messages-container {
+         flex: 1;
+         padding: 20px;
+         overflow-y: auto;
+         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+         }
+         [data-theme="dark"] .messages-container {
+         background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+         }
+         .message {
+         display: flex;
+         margin-bottom: 20px;
+         animation: messageSlide 0.3s ease-out;
+         }
+         @keyframes messageSlide {
+         from {
+         opacity: 0;
+         transform: translateY(20px);
+         }
+         to {
+         opacity: 1;
+         transform: translateY(0);
+         }
+         }
+         .message.user {
+         justify-content: flex-end;
+         }
+         .message-bubble {
+         max-width: 70%;
+         padding: 15px 20px;
+         border-radius: 20px;
+         position: relative;
+         word-wrap: break-word;
+         box-shadow: var(--shadow-sm);
+         }
+         .message.agent .message-bubble {
+         background: var(--message-agent);
+         color: var(--text-primary);
+         border-bottom-right-radius: 5px;
+         }
+         .message.user .message-bubble {
+         background: var(--message-user);
+         color: white;
+         border-bottom-left-radius: 5px;
+         }
+         .message-content {
+         margin-bottom: 5px;
+         line-height: 1.5;
+         }
+         .message-time {
+         font-size: 12px;
+         opacity: 0.7;
+         text-align: left;
+         }
+         .message.user .message-time {
+         text-align: right;
+         }
+         .message-avatar {
+         width: 32px;
+         height: 32px;
+         border-radius: 50%;
+         margin: 0 10px;
+         align-self: flex-end;
+         }
+         /* منطقة الإدخال */
+         .input-container {
+         padding: 20px;
+         background: var(--surface-color);
+         border-top: 1px solid var(--border-color);
+         }
+         .input-wrapper {
+         display: flex;
+         align-items: center;
+         gap: 10px;
+         background: var(--background-color);
+         border-radius: 25px;
+         padding: 5px;
+         border: 2px solid var(--border-color);
+         transition: var(--transition);
+         }
+         .input-wrapper:focus-within {
+         border-color: var(--primary-color);
+         box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+         }
+         .message-input {
+         flex: 1;
+         border: none;
+         background: none;
+         padding: 12px 16px;
+         font-size: 14px;
+         color: var(--text-primary);
+         outline: none;
+         resize: none;
+         max-height: 100px;
+         }
+         .input-actions {
+         display: flex;
+         gap: 5px;
+         margin-left: 10px;
+         }
+         .attach-btn, .emoji-btn, .send-btn {
+         width: 36px;
+         height: 36px;
+         border: none;
+         border-radius: 50%;
+         cursor: pointer;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         transition: var(--transition);
+         font-size: 16px;
+         }
+         .attach-btn, .emoji-btn {
+         background: transparent;
+         color: var(--text-secondary);
+         }
+         .attach-btn:hover, .emoji-btn:hover {
+         background: var(--background-color);
+         color: var(--text-primary);
+         }
+         .send-btn {
+         background: var(--primary-color);
+         color: white;
+         }
+         .send-btn:hover {
+         background: var(--secondary-color);
+         transform: scale(1.1);
+         }
+         .send-btn:disabled {
+         background: var(--text-secondary);
+         cursor: not-allowed;
+         transform: none;
+         }
+         /* نافذة الإيموجي */
+         .emoji-picker {
+         position: absolute;
+         bottom: 80px;
+         right: 20px;
+         background: var(--surface-color);
+         border-radius: 12px;
+         box-shadow: var(--shadow-lg);
+         padding: 15px;
+         display: none;
+         grid-template-columns: repeat(8, 1fr);
+         gap: 5px;
+         z-index: 1000;
+         border: 1px solid var(--border-color);
+         }
+         .emoji-picker.show {
+         display: grid;
+         }
+         .emoji-item {
+         width: 30px;
+         height: 30px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         cursor: pointer;
+         border-radius: 6px;
+         transition: var(--transition);
+         font-size: 20px;
+         }
+         .emoji-item:hover {
+         background: var(--background-color);
+         transform: scale(1.2);
+         }
+         /* قائمة الإعدادات */
+         .settings-menu {
+         position: absolute;
+         top: 60px;
+         right: 20px;
+         background: var(--surface-color);
+         border-radius: 12px;
+         box-shadow: var(--shadow-lg);
+         padding: 10px;
+         display: none;
+         min-width: 200px;
+         z-index: 1000;
+         border: 1px solid var(--border-color);
+         }
+         .settings-menu.show {
+         display: block;
+         }
+         .settings-item {
+         padding: 12px 16px;
+         cursor: pointer;
+         border-radius: 8px;
+         transition: var(--transition);
+         display: flex;
+         align-items: center;
+         gap: 10px;
+         }
+         .settings-item:hover {
+         background: var(--background-color);
+         }
+         /* زر تبديل الوضع المظلم */
+         .theme-toggle {
+         position: fixed;
+         bottom: 20px;
+         left: 20px;
+         background: var(--surface-color);
+         border: 2px solid var(--border-color);
+         border-radius: 50%;
+         width: 50px;
+         height: 50px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         cursor: pointer;
+         box-shadow: var(--shadow-md);
+         transition: var(--transition);
+         z-index: 100;
+         }
+         .theme-toggle:hover {
+         transform: scale(1.1);
+         }
+         /* رسائل التنبيه */
+         .notification {
+         position: fixed;
+         top: 20px;
+         right: 20px;
+         background: var(--primary-color);
+         color: white;
+         padding: 15px 20px;
+         border-radius: 8px;
+         box-shadow: var(--shadow-lg);
+         transform: translateX(400px);
+         transition: var(--transition);
+         z-index: 1000;
+         }
+         .notification.show {
+         transform: translateX(0);
+         }
+         /* التصميم المتجاوب */
+         @media (max-width: 1024px) {
+         .chat-app {
+         margin: 10px;
+         }
+         .sidebar {
+         width: 300px;
+         }
+         }
+         @media (max-width: 768px) {
+         .chat-app {
+         margin: 0;
+         border-radius: 0;
+         height: 100vh;
+         }
+         .sidebar {
+         position: fixed;
+         top: 0;
+         right: -100%;
+         width: 100%;
+         height: 100%;
+         z-index: 999;
+         border-radius: 0;
+         }
+         .sidebar.show {
+         right: 0;
+         }
+         .messages-container {
+         padding: 15px;
+         }
+         .message-bubble {
+         max-width: 85%;
+         }
+         }
+         @media (max-width: 480px) {
+         .chat-header {
+         padding: 15px;
+         }
+         .input-container {
+         padding: 15px;
+         }
+         .message-bubble {
+         padding: 12px 16px;
+         font-size: 14px;
+         }
+         }
+         /* مؤشر الكتابة */
+         .typing-indicator {
+         display: none;
+         align-items: center;
+         gap: 4px;
+         padding: 15px 20px;
+         margin-bottom: 10px;
+         }
+         .typing-indicator.show {
+         display: flex;
+         }
+         .typing-dot {
+         width: 8px;
+         height: 8px;
+         border-radius: 50%;
+         background: var(--text-secondary);
+         animation: typing 1.4s infinite ease-in-out;
+         }
+         .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+         .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+         @keyframes typing {
+         0%, 80%, 100% { transform: scale(0); }
+         40% { transform: scale(1); }
+         }
+         /* سكرول مخصص */
+         ::-webkit-scrollbar {
+         width: 6px;
+         }
+         ::-webkit-scrollbar-track {
+         background: var(--background-color);
+         }
+         ::-webkit-scrollbar-thumb {
+         background: var(--border-color);
+         border-radius: 3px;
+         }
+         ::-webkit-scrollbar-thumb:hover {
+         background: var(--text-secondary);
+         }
+         /* تأثيرات إضافية */
+         .fade-in {
+         animation: fadeIn 0.5s ease-out;
+         }
+         @keyframes fadeIn {
+         from { opacity: 0; }
+         to { opacity: 1; }
+         }
+         .slide-up {
+         animation: slideUp 0.3s ease-out;
+         }
+         @keyframes slideUp {
+         from { transform: translateY(20px); opacity: 0; }
+         to { transform: translateY(0); opacity: 1; }
+         }
+         /* زر القائمة للموبايل */
+         .mobile-menu-btn {
+         display: none;
+         background: none;
+         border: none;
+         font-size: 24px;
+         cursor: pointer;
+         color: var(--text-primary);
+         }
+         @media (max-width: 768px) {
+         .mobile-menu-btn {
+         display: block;
+         }
+         }
+         /* وضع ملء الشاشة */
+         .fullscreen-mode .chat-app {
+         margin: 0;
+         border-radius: 0;
+         height: 100vh;
+         }
+         .fullscreen-mode .sidebar {
+         border-radius: 0;
+         }
+         /* معاينة الصور */
+         .image-preview {
+         max-width: 200px;
+         max-height: 200px;
+         border-radius: 12px;
+         margin: 10px 0;
+         cursor: pointer;
+         transition: var(--transition);
+         }
+         .image-preview:hover {
+         transform: scale(1.05);
+         }
+         /* ردود الفعل السريعة */
+         .quick-reactions {
+         display: flex;
+         gap: 5px;
+         margin-top: 10px;
+         }
+         .reaction-btn {
+         background: var(--background-color);
+         border: 1px solid var(--border-color);
+         border-radius: 15px;
+         padding: 5px 10px;
+         cursor: pointer;
+         font-size: 14px;
+         transition: var(--transition);
+         }
+         .reaction-btn:hover {
+         background: var(--primary-color);
+         color: white;
+         border-color: var(--primary-color);
+         }
+      </style>
+   </head>
+   <body>
+      <div class="chat-app">
+         <!-- الشريط الجانبي -->
+         <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+               <h2>💬 المحادثات</h2>
+               <div class="user-profile">
+                  <div class="avatar">
+                     أنا
+                     <div class="status-indicator"></div>
+                  </div>
+               </div>
+            </div>
+            <div class="search-box">
+               <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن محادثة...">
+            </div>
+            <div class="conversations-list" id="conversationsList">
+               <!-- سيتم ملء المحادثات هنا ديناميكياً -->
+            </div>
+         </aside>
+         <!-- منطقة المحادثة -->
+         <main class="chat-area">
+            <header class="chat-header">
+               <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+               <div class="chat-header-info">
+                  <div class="avatar" id="currentChatAvatar">👤</div>
+                  <div>
+                     <div class="chat-header-name" id="currentChatName">اختر محادثة</div>
+                     <div class="chat-header-status" id="currentChatStatus">غير متصل</div>
+                  </div>
+               </div>
+               <div class="chat-actions">
+                  <button class="icon-btn" onclick="toggleSettings()" title="الإعدادات">⚙️</button>
+                  <button class="icon-btn" onclick="toggleTheme()" title="تبديل الوضع">🌙</button>
+                  <button class="icon-btn" onclick="toggleFullscreen()" title="ملء الشاشة">⛶</button>
+               </div>
+               <!-- قائمة الإعدادات -->
+               <div class="settings-menu" id="settingsMenu">
+                  <div class="settings-item" onclick="clearChat()">
+                     🗑️ مسح المحادثة
+                  </div>
+                  <div class="settings-item" onclick="exportChat()">
+                     📤 تصدير المحادثة
+                  </div>
+                  <div class="settings-item" onclick="muteChat()">
+                     🔇 كتم الإشعارات
+                  </div>
+                  <div class="settings-item" onclick="blockUser()">
+                     🚫 حظر المستخدم
+                  </div>
+               </div>
+            </header>
+            <div class="messages-container" id="messagesContainer">
+               <div id="noChatMessage" style="text-align: center; padding: 60px 20px; color: var(--text-secondary);">
+                  <div style="font-size: 4rem; margin-bottom: 20px;">💬</div>
+                  <h3>اختر محادثة للبدء</h3>
+                  <p>ابدأ محادثة جديدة أو اختر من المحادثات الحالية</p>
+               </div>
+               <!-- مؤشر الكتابة -->
+               <div class="typing-indicator" id="typingIndicator">
+                  <div class="typing-dot"></div>
+                  <div class="typing-dot"></div>
+                  <div class="typing-dot"></div>
+                  <span style="margin-right: 10px; color: var(--text-secondary);">يكتب الآن...</span>
+               </div>
+            </div>
+            <div class="input-container">
+               <div class="input-wrapper">
+                  <textarea 
+                     class="message-input" 
+                     id="messageInput" 
+                     placeholder="اكتب رسالتك هنا..."
+                     rows="1"
+                     ></textarea>
+                  <div class="input-actions">
+                     <button class="attach-btn" onclick="attachFile()" title="إرفاق ملف">📎</button>
+                     <button class="emoji-btn" onclick="toggleEmojiPicker()" title="إضافة إيموجي">😊</button>
+                     <button class="send-btn" id="sendBtn" onclick="sendMessage()" title="إرسال">➤</button>
+                  </div>
+               </div>
+               <!-- منتقي الإيموجي -->
+               <div class="emoji-picker" id="emojiPicker">
+                  <!-- سيتم ملء الإيموجي هنا ديناميكياً -->
+               </div>
+               <!-- ردود الفعل السريعة -->
+               <div class="quick-reactions" id="quickReactions">
+                  <button class="reaction-btn" onclick="sendQuickReaction('👍')">👍</button>
+                  <button class="reaction-btn" onclick="sendQuickReaction('❤️')">❤️</button>
+                  <button class="reaction-btn" onclick="sendQuickReaction('😂')">😂</button>
+                  <button class="reaction-btn" onclick="sendQuickReaction('😮')">😮</button>
+                  <button class="reaction-btn" onclick="sendQuickReaction('😢')">😢</button>
+                  <button class="reaction-btn" onclick="sendQuickReaction('🎉')">🎉</button>
+               </div>
+            </div>
+         </main>
+      </div>
+      <!-- زر تبديل الوضع المظلم -->
+      <div class="theme-toggle" onclick="toggleTheme()">
+         <span id="themeIcon">🌙</span>
+      </div>
+      <!-- رسائل التنبيه -->
+      <div class="notification" id="notification"></div>
+      <!-- عنصر إدخال مخفي للملفات -->
+      <input type="file" id="fileInput" style="display: none;" accept="image/*,.pdf,.doc,.docx,.txt" onchange="handleFileSelect(event)">
+      <script>
+         // متغيرات التطبيق
+         let conversations = [];
+         let currentConversation = null;
+         let currentTheme = localStorage.getItem('theme') || 'light';
+         let isTyping = false;
+         let fileToSend = null;
+         
+         // تهيئة التطبيق
+         document.addEventListener('DOMContentLoaded', function() {
+             initializeTheme();
+             initializeConversations();
+             initializeEmojiPicker();
+             setupEventListeners();
+             loadConversations();
+         });
+         
+         // تهيئة الوضع المظلم/المضيء
+         function initializeTheme() {
+             document.documentElement.setAttribute('data-theme', currentTheme);
+             document.getElementById('themeIcon').textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+         }
+         
+         // تبديل الوضع المظلم/المضيء
+         function toggleTheme() {
+             currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+             document.documentElement.setAttribute('data-theme', currentTheme);
+             localStorage.setItem('theme', currentTheme);
+             document.getElementById('themeIcon').textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+             showNotification('تم تغيير الوضع بنجاح!');
+         }
+         
+         // تهيئة المحادثات الافتراضية
+         function initializeConversations() {
+             conversations = [
+                 {
+                     id: 1,
+                     name: 'أحمد محمد',
+                     avatar: '👨‍💼',
+                     status: 'متصل الآن',
+                     lastMessage: 'مرحباً! كيف حالك؟',
+                     lastMessageTime: new Date().toISOString(),
+                     unread: 2,
+                     messages: [
+                         {
+                             id: 1,
+                             content: 'مرحباً! كيف حالك؟',
+                             sender: 'agent',
+                             time: new Date().toISOString(),
+                             status: 'read'
+                         },
+                         {
+                             id: 2,
+                             content: 'أنا بخير، شكراً لسؤالك!',
+                             sender: 'user',
+                             time: new Date().toISOString(),
+                             status: 'read'
+                         }
+                     ]
+                 },
+                 {
+                     id: 2,
+                     name: 'فاطمة علي',
+                     avatar: '👩‍🎓',
+                     status: 'متصلة',
+                     lastMessage: 'هل أتممت المشروع؟',
+                     lastMessageTime: new Date(Date.now() - 3600000).toISOString(),
+                     unread: 0,
+                     messages: [
+                         {
+                             id: 1,
+                             content: 'هل أتممت المشروع؟',
+                             sender: 'agent',
+                             time: new Date(Date.now() - 3600000).toISOString(),
+                             status: 'read'
+                         }
+                     ]
+                 },
+                 {
+                     id: 3,
+                     name: 'محمد خالد',
+                     avatar: '👨‍🔧',
+                     status: 'غير متصل',
+                     lastMessage: 'شكراً على المساعدة!',
+                     lastMessageTime: new Date(Date.now() - 7200000).toISOString(),
+                     unread: 0,
+                     messages: []
+                 }
+             ];
+         }
+         
+         // تهيئة منتقي الإيموجي
+         function initializeEmojiPicker() {
+             const emojis = ['😀', '😂', '😍', '🤔', '👍', '👎', '❤️', '🔥', '🎉', '😢', '😡', '🙄', '😴', '🤗', '😊', '😎', '🤓', '💪', '🌟', '💯', '🔔', '📞', '💬', '⏰', '🎯', '💡', '🔑', '🔒', '📧', '📱'];
+             const emojiPicker = document.getElementById('emojiPicker');
+             
+             emojis.forEach(emoji => {
+                 const emojiItem = document.createElement('div');
+                 emojiItem.className = 'emoji-item';
+                 emojiItem.textContent = emoji;
+                 emojiItem.onclick = () => insertEmoji(emoji);
+                 emojiPicker.appendChild(emojiItem);
+             });
+         }
+         
+         // إعداد مستمعي الأحداث
+         function setupEventListeners() {
+             // البحث
+             document.getElementById('searchInput').addEventListener('input', function(e) {
+                 searchConversations(e.target.value);
+             });
+         
+             // إدخال الرسالة
+             const messageInput = document.getElementById('messageInput');
+             messageInput.addEventListener('keypress', function(e) {
+                 if (e.key === 'Enter' && !e.shiftKey) {
+                     e.preventDefault();
+                     sendMessage();
+                 }
+             });
+         
+             messageInput.addEventListener('input', function() {
+                 this.style.height = 'auto';
+                 this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+                 
+                 // محاكاة الكتابة
+                 if (!isTyping) {
+                     simulateTyping();
+                 }
+             });
+         
+             // إغلاق القوائم المنبثقة
+             document.addEventListener('click', function(e) {
+                 if (!e.target.closest('.emoji-btn')) {
+                     document.getElementById('emojiPicker').classList.remove('show');
+                 }
+                 if (!e.target.closest('.icon-btn')) {
+                     document.getElementById('settingsMenu').classList.remove('show');
+                 }
+             });
+         
+             // تبديل الشريط الجانبي على الموبايل
+             window.addEventListener('resize', function() {
+                 if (window.innerWidth > 768) {
+                     document.getElementById('sidebar').classList.remove('show');
+                 }
+             });
+         }
+         
+         // تحميل المحادثات
+         function loadConversations() {
+             renderConversations();
+         }
+         
+         // عرض المحادثات
+         function renderConversations() {
+             const conversationsList = document.getElementById('conversationsList');
+             conversationsList.innerHTML = conversations.map(conversation => `
+                 <div class="conversation-item ${currentConversation?.id === conversation.id ? 'active' : ''}" 
+                      onclick="selectConversation(${conversation.id})">
+                     <div class="conversation-avatar">
+                         <div class="avatar">${conversation.avatar}</div>
+                         ${conversation.unread > 0 ? `<div class="unread-badge">${conversation.unread}</div>` : ''}
+                     </div>
+                     <div class="conversation-info">
+                         <div class="conversation-name">${conversation.name}</div>
+                         <div class="conversation-last-message">${conversation.lastMessage}</div>
+                     </div>
+                     <div class="conversation-time">${formatTime(conversation.lastMessageTime)}</div>
+                 </div>
+             `).join('');
+         }
+         
+         // اختيار محادثة
+         function selectConversation(id) {
+             currentConversation = conversations.find(conv => conv.id === id);
+             if (currentConversation) {
+                 // تحديث واجهة المستخدم
+                 document.getElementById('currentChatName').textContent = currentConversation.name;
+                 document.getElementById('currentChatAvatar').textContent = currentConversation.avatar;
+                 document.getElementById('currentChatStatus').textContent = currentConversation.status;
+                 
+                 // عرض الرسائل
+                 renderMessages();
+                 
+                 // إعادة تعيين عدد الرسائل غير المقروءة
+                 currentConversation.unread = 0;
+                 renderConversations();
+                 
+                 // إخفاء رسالة "اختر محادثة"
+                 document.getElementById('noChatMessage').style.display = 'none';
+                 
+                 // تمرير إلى آخر رسالة
+                 scrollToBottom();
+                 
+                 // إغلاق الشريط الجانبي على الموبايل
+                 if (window.innerWidth <= 768) {
+                     document.getElementById('sidebar').classList.remove('show');
+                 }
+             }
+         }
+         
+         // عرض الرسائل
+         function renderMessages() {
+             if (!currentConversation) return;
+         
+             const messagesContainer = document.getElementById('messagesContainer');
+             const existingMessages = messagesContainer.querySelectorAll('.message');
+             existingMessages.forEach(msg => msg.remove());
+         
+             currentConversation.messages.forEach(message => {
+                 const messageElement = createMessageElement(message);
+                 messagesContainer.appendChild(messageElement);
+             });
+         
+             scrollToBottom();
+         }
+         
+         // إنشاء عنصر الرسالة
+         function createMessageElement(message) {
+             const messageDiv = document.createElement('div');
+             messageDiv.className = `message ${message.sender}`;
+             
+             const time = new Date(message.time).toLocaleTimeString('ar-EG', {
+                 hour: '2-digit',
+                 minute: '2-digit'
+             });
+         
+             messageDiv.innerHTML = `
+                 ${message.sender === 'agent' ? `
+                     <div class="message-avatar avatar">
+                         ${currentConversation.avatar}
+                     </div>
+                 ` : ''}
+                 <div class="message-bubble">
+                     <div class="message-content">${escapeHtml(message.content)}</div>
+                     <div class="message-time">
+                         ${time}
+                         ${message.sender === 'user' ? `
+                             <span class="message-status">
+                                 ${message.status === 'read' ? '✓✓' : '✓'}
+                             </span>
+                         ` : ''}
+                     </div>
+                 </div>
+                 ${message.sender === 'user' ? `
+                     <div class="message-avatar avatar">أنا</div>
+                 ` : ''}
+             `;
+         
+             return messageDiv;
+         }
+         
+         // إرسال رسالة
+         function sendMessage() {
+             const messageInput = document.getElementById('messageInput');
+             const content = messageInput.value.trim();
+         
+             if (!content && !fileToSend) return;
+             if (!currentConversation) {
+                 showNotification('يرجى اختيار محادثة أولاً!');
+                 return;
+             }
+         
+             const message = {
+                 id: Date.now(),
+                 content: content || '📎 ملف مرفق',
+                 sender: 'user',
+                 time: new Date().toISOString(),
+                 status: 'sent',
+                 file: fileToSend
+             };
+         
+             currentConversation.messages.push(message);
+             currentConversation.lastMessage = content || '📎 ملف مرفق';
+             currentConversation.lastMessageTime = message.time;
+         
+             // عرض الرسالة
+             const messageElement = createMessageElement(message);
+             document.getElementById('messagesContainer').appendChild(messageElement);
+         
+             // مسح الإدخال وإعادة تعيين الملف
+             messageInput.value = '';
+             fileToSend = null;
+             messageInput.style.height = 'auto';
+         
+             scrollToBottom();
+             renderConversations();
+         
+             // محاكاة الرد
+             setTimeout(() => simulateResponse(), 1000);
+         }
+         
+         // محاكاة الكتابة
+         function simulateTyping() {
+             isTyping = true;
+             // يمكن إضافة منطق لإظهار مؤشر الكتابة هنا
+         }
+         
+         // محاكاة الرد
+         function simulateResponse() {
+             if (!currentConversation) return;
+         
+             const responses = [
+                 'شكراً لرسالتك! كيف يمكنني مساعدتك؟',
+                 'هذا مثير للاهتمام! أخبرني أكثر.',
+                 'أفهم ما تعنيه. ماذا عن...؟',
+                 'رائع! هل هناك شيء آخر؟',
+                 'شكراً لمشاركتك هذا معي.',
+                 'أوافقك الرأي تماماً!',
+                 'هذا سؤال جيد! دعني أفكر...'
+             ];
+         
+             const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+         
+             // إظهار مؤشر الكتابة
+             document.getElementById('typingIndicator').classList.add('show');
+             scrollToBottom();
+         
+             setTimeout(() => {
+                 document.getElementById('typingIndicator').classList.remove('show');
+         
+                 const responseMessage = {
+                     id: Date.now() + 1,
+                     content: randomResponse,
+                     sender: 'agent',
+                     time: new Date().toISOString(),
+                     status: 'read'
+                 };
+         
+                 currentConversation.messages.push(responseMessage);
+                 currentConversation.lastMessage = randomResponse;
+                 currentConversation.lastMessageTime = responseMessage.time;
+         
+                 const messageElement = createMessageElement(responseMessage);
+                 document.getElementById('messagesContainer').appendChild(messageElement);
+         
+                 scrollToBottom();
+                 renderConversations();
+                 showNotification('تم استلام رسالة جديدة من ' + currentConversation.name);
+             }, 2000);
+         }
+         
+         // إرسال رد فعل سريع
+         function sendQuickReaction(emoji) {
+             if (!currentConversation) {
+                 showNotification('يرجى اختيار محادثة أولاً!');
+                 return;
+             }
+         
+             const message = {
+                 id: Date.now(),
+                 content: emoji,
+                 sender: 'user',
+                 time: new Date().toISOString(),
+                 status: 'sent'
+             };
+         
+             currentConversation.messages.push(message);
+             currentConversation.lastMessage = emoji;
+             currentConversation.lastMessageTime = message.time;
+         
+             const messageElement = createMessageElement(message);
+             document.getElementById('messagesContainer').appendChild(messageElement);
+         
+             scrollToBottom();
+             renderConversations();
+         
+             setTimeout(() => simulateResponse(), 1000);
+         }
+         
+         // إدراج إيموجي
+         function insertEmoji(emoji) {
+             const messageInput = document.getElementById('messageInput');
+             messageInput.value += emoji;
+             messageInput.focus();
+             toggleEmojiPicker();
+         }
+         
+         // تبديل منتقي الإيموجي
+         function toggleEmojiPicker() {
+             const emojiPicker = document.getElementById('emojiPicker');
+             emojiPicker.classList.toggle('show');
+         }
+         
+         // إرفاق ملف
+         function attachFile() {
+             document.getElementById('fileInput').click();
+         }
+         
+         // معالجة اختيار الملف
+         function handleFileSelect(event) {
+             const file = event.target.files[0];
+             if (file) {
+                 fileToSend = {
+                     name: file.name,
+                     size: file.size,
+                     type: file.type
+                 };
+                 showNotification(`تم اختيار الملف: ${file.name}`);
+             }
+         }
+         
+         // مسح المحادثة
+         function clearChat() {
+             if (!currentConversation) {
+                 showNotification('يرجى اختيار محادثة أولاً!');
+                 return;
+             }
+         
+             if (confirm('هل أنت متأكد من مسح جميع رسائل هذه المحادثة؟')) {
+                 currentConversation.messages = [];
+                 renderMessages();
+                 showNotification('تم مسح المحادثة بنجاح!');
+             }
+             toggleSettings();
+         }
+         
+         // تصدير المحادثة
+         function exportChat() {
+             if (!currentConversation || currentConversation.messages.length === 0) {
+                 showNotification('لا توجد رسائل للتصدير!');
+                 return;
+             }
+         
+             let content = `محادثة مع: ${currentConversation.name}\n`;
+             content += `تاريخ التصدير: ${new Date().toLocaleString('ar-EG')}\n`;
+             content += '='.repeat(50) + '\n\n';
+         
+             currentConversation.messages.forEach(message => {
+                 const time = new Date(message.time).toLocaleString('ar-EG');
+                 const sender = message.sender === 'user' ? 'أنا' : currentConversation.name;
+                 content += `[${time}] ${sender}: ${message.content}\n`;
+             });
+         
+             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+             const url = URL.createObjectURL(blob);
+             
+             const a = document.createElement('a');
+             a.href = url;
+             a.download = `chat_${currentConversation.name}_${new Date().toISOString().split('T')[0]}.txt`;
+             document.body.appendChild(a);
+             a.click();
+             document.body.removeChild(a);
+             URL.revokeObjectURL(url);
+             
+             showNotification('تم تصدير المحادثة بنجاح!');
+             toggleSettings();
+         }
+         
+         // كتم الإشعارات
+         function muteChat() {
+             showNotification('تم كتم إشعارات هذه المحادثة!');
+             toggleSettings();
+         }
+         
+         // حظر المستخدم
+         function blockUser() {
+             if (confirm('هل أنت متأكد من حظر هذا المستخدم؟')) {
+                 showNotification('تم حظر المستخدم بنجاح!');
+                 // هنا يمكن إضافة منطق الحظر
+             }
+             toggleSettings();
+         }
+         
+         // تبديل الإعدادات
+         function toggleSettings() {
+             const settingsMenu = document.getElementById('settingsMenu');
+             settingsMenu.classList.toggle('show');
+         }
+         
+         // تبديل الشريط الجانبي
+         function toggleSidebar() {
+             const sidebar = document.getElementById('sidebar');
+             sidebar.classList.toggle('show');
+         }
+         
+         // تبديل ملء الشاشة
+         function toggleFullscreen() {
+             document.body.classList.toggle('fullscreen-mode');
+             showNotification(document.body.classList.contains('fullscreen-mode') ? 'تم تفعيل وضع ملء الشاشة!' : 'تم إيقاف وضع ملء الشاشة!');
+         }
+         
+         // البحث عن المحادثات
+         function searchConversations(query) {
+             const filteredConversations = conversations.filter(conv => 
+                 conv.name.toLowerCase().includes(query.toLowerCase()) ||
+                 conv.lastMessage.toLowerCase().includes(query.toLowerCase())
+             );
+             
+             const conversationsList = document.getElementById('conversationsList');
+             conversationsList.innerHTML = filteredConversations.map(conversation => `
+                 <div class="conversation-item ${currentConversation?.id === conversation.id ? 'active' : ''}" 
+                      onclick="selectConversation(${conversation.id})">
+                     <div class="conversation-avatar">
+                         <div class="avatar">${conversation.avatar}</div>
+                         ${conversation.unread > 0 ? `<div class="unread-badge">${conversation.unread}</div>` : ''}
+                     </div>
+                     <div class="conversation-info">
+                         <div class="conversation-name">${conversation.name}</div>
+                         <div class="conversation-last-message">${conversation.lastMessage}</div>
+                     </div>
+                     <div class="conversation-time">${formatTime(conversation.lastMessageTime)}</div>
+                 </div>
+             `).join('');
+         }
+         
+         // تنسيق الوقت
+         function formatTime(dateString) {
+             const date = new Date(dateString);
+             const now = new Date();
+             const diffTime = Math.abs(now - date);
+             const diffMinutes = Math.floor(diffTime / (1000 * 60));
+         
+             if (diffMinutes < 1) return 'الآن';
+             if (diffMinutes < 60) return `قبل ${diffMinutes} دقيقة`;
+             
+             const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+             if (diffHours < 24) return `قبل ${diffHours} ساعة`;
+             
+             return date.toLocaleDateString('ar-EG');
+         }
+         
+         // التمرير إلى الأسفل
+         function scrollToBottom() {
+             const messagesContainer = document.getElementById('messagesContainer');
+             messagesContainer.scrollTop = messagesContainer.scrollHeight;
+         }
+         
+         // عرض الإشعار
+         function showNotification(message) {
+             const notification = document.getElementById('notification');
+             notification.textContent = message;
+             notification.classList.add('show');
+             
+             setTimeout(() => {
+                 notification.classList.remove('show');
+             }, 3000);
+         }
+         
+         // هروب HTML
+         function escapeHtml(text) {
+             const div = document.createElement('div');
+             div.textContent = text;
+             return div.innerHTML;
+         }
+         
+         // إنشاء محادثة جديدة
+         function createNewConversation() {
+             const name = prompt('أدخل اسم الشخص:');
+             if (name) {
+                 const newConversation = {
+                     id: Date.now(),
+                     name: name,
+                     avatar: '👤',
+                     status: 'متصل',
+                     lastMessage: 'محادثة جديدة',
+                     lastMessageTime: new Date().toISOString(),
+                     unread: 0,
+                     messages: []
+                 };
+                 
+                 conversations.unshift(newConversation);
+                 renderConversations();
+                 selectConversation(newConversation.id);
+                 showNotification(`تم بدء محادثة جديدة مع ${name}`);
+             }
+         }
+         
+         // إضافة زر لإنشاء محادثة جديدة
+         document.addEventListener('DOMContentLoaded', function() {
+             const sidebarHeader = document.querySelector('.sidebar-header');
+             const newChatBtn = document.createElement('button');
+             newChatBtn.className = 'icon-btn';
+             newChatBtn.innerHTML = '➕';
+             newChatBtn.title = 'محادثة جديدة';
+             newChatBtn.onclick = createNewConversation;
+             sidebarHeader.appendChild(newChatBtn);
+         });
+      </script>
+   </body>
+</html>

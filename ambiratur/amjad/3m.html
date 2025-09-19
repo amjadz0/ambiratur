@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="shortcut icon" href="500x500.png" type="image/x-icon">
+      <title>أطر عمل JavaScript: دليلك الشامل 2025</title>
+      <style>
+         * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         }
+         body {
+         font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
+         line-height: 1.8;
+         background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+         color: #e2e8f0;
+         min-height: 100vh;
+         background-attachment: fixed;
+         }
+         .container {
+         max-width: 900px;
+         margin: 0 auto;
+         padding: 20px;
+         }
+         header {
+         background: rgba(15, 23, 42, 0.85);
+         backdrop-filter: blur(10px);
+         -webkit-backdrop-filter: blur(10px);
+         border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+         padding: 60px 0;
+         text-align: center;
+         position: relative;
+         overflow: hidden;
+         }
+         header::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: radial-gradient(circle at center, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
+         z-index: -1;
+         }
+         h1 {
+         font-size: 2.8em;
+         margin-bottom: 15px;
+         background: linear-gradient(to left, #fbbf24, #f59e0b);
+         -webkit-background-clip: text;
+         background-clip: text;
+         color: transparent;
+         position: relative;
+         z-index: 1;
+         }
+         .subtitle {
+         font-size: 1.2em;
+         opacity: 0.9;
+         color: #94a3b8;
+         }
+         article {
+         background: rgba(15, 23, 42, 0.6);
+         backdrop-filter: blur(10px);
+         -webkit-backdrop-filter: blur(10px);
+         margin: 30px 0;
+         padding: 40px;
+         border-radius: 20px;
+         border: 1px solid rgba(251, 191, 36, 0.15);
+         box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+         position: relative;
+         overflow: hidden;
+         }
+         article::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 4px;
+         background: linear-gradient(to right, #fbbf24, #f59e0b);
+         }
+         h2 {
+         color: #fbbf24;
+         margin: 40px 0 20px;
+         padding-bottom: 10px;
+         border-bottom: 2px solid rgba(251, 191, 36, 0.3);
+         font-size: 1.9em;
+         position: relative;
+         }
+         h2::after {
+         content: '';
+         position: absolute;
+         bottom: -2px;
+         right: 0;
+         width: 60px;
+         height: 2px;
+         background: linear-gradient(to left, #fbbf24, #f59e0b);
+         }
+         h3 {
+         color: #fde68a;
+         margin: 25px 0 15px;
+         font-size: 1.4em;
+         }
+         .highlight-box {
+         background: linear-gradient(120deg, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.1) 100%);
+         padding: 25px;
+         margin: 25px 0;
+         border-radius: 15px;
+         border-right: 4px solid #fbbf24;
+         position: relative;
+         overflow: hidden;
+         }
+         .highlight-box::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23fbbf24' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+         z-index: -1;
+         }
+         .framework-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+         gap: 20px;
+         margin: 25px 0;
+         }
+         .framework-card {
+         background: rgba(15, 23, 42, 0.7);
+         padding: 25px;
+         border-radius: 15px;
+         border: 1px solid rgba(251, 191, 36, 0.2);
+         transition: all 0.3s ease;
+         position: relative;
+         overflow: hidden;
+         }
+         .framework-card::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 3px;
+         background: linear-gradient(to right, #fbbf24, #f59e0b);
+         transform: scaleX(0);
+         transform-origin: left;
+         transition: transform 0.3s ease;
+         }
+         .framework-card:hover {
+         transform: translateY(-5px);
+         box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+         border-color: rgba(251, 191, 36, 0.4);
+         }
+         .framework-card:hover::before {
+         transform: scaleX(1);
+         }
+         .framework-card h4 {
+         color: #fbbf24;
+         margin-bottom: 15px;
+         font-size: 1.3em;
+         display: flex;
+         align-items: center;
+         gap: 10px;
+         }
+         .comparison-table {
+         width: 100%;
+         border-collapse: collapse;
+         margin: 25px 0;
+         background: rgba(15, 23, 42, 0.5);
+         border-radius: 15px;
+         overflow: hidden;
+         border: 1px solid rgba(251, 191, 36, 0.2);
+         }
+         .comparison-table th,
+         .comparison-table td {
+         padding: 15px;
+         text-align: right;
+         border-bottom: 1px solid rgba(251, 191, 36, 0.1);
+         }
+         .comparison-table th {
+         background: linear-gradient(to bottom, rgba(251, 191, 36, 0.3), rgba(245, 158, 11, 0.2));
+         color: #fbbf24;
+         font-weight: bold;
+         }
+         .comparison-table tr:hover {
+         background: rgba(251, 191, 36, 0.05);
+         }
+         .check-list {
+         list-style: none;
+         padding: 0;
+         }
+         .check-list li {
+         padding: 12px 0;
+         padding-right: 35px;
+         position: relative;
+         border-bottom: 1px solid rgba(251, 191, 36, 0.1);
+         }
+         .check-list li:before {
+         content: "✓";
+         position: absolute;
+         right: 0;
+         color: #10b981;
+         font-weight: bold;
+         font-size: 1.2em;
+         }
+         .code-block {
+         background: #1e293b;
+         border: 1px solid rgba(251, 191, 36, 0.2);
+         border-radius: 10px;
+         padding: 20px;
+         margin: 20px 0;
+         overflow-x: auto;
+         direction: ltr;
+         text-align: left;
+         }
+         .code-block code {
+         color: #fde68a;
+         font-family: 'Fira Code', 'Courier New', monospace;
+         font-size: 0.95em;
+         }
+         .conclusion {
+         background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.1) 100%);
+         padding: 40px;
+         border-radius: 20px;
+         text-align: center;
+         margin-top: 40px;
+         border: 1px solid rgba(251, 191, 36, 0.2);
+         position: relative;
+         overflow: hidden;
+         }
+         .conclusion::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: radial-gradient(circle at center, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
+         z-index: 0;
+         }
+         .conclusion h2 {
+         color: #fbbf24;
+         border: none;
+         margin-bottom: 20px;
+         position: relative;
+         z-index: 1;
+         }
+         .conclusion p {
+         font-size: 1.15em;
+         line-height: 1.8;
+         color: #e2e8f0;
+         position: relative;
+         z-index: 1;
+         }
+         .js-icon {
+         font-size: 3.5em;
+         margin-bottom: 20px;
+         display: inline-block;
+         animation: pulse 2s infinite;
+         background: linear-gradient(to right, #fbbf24, #f59e0b);
+         -webkit-background-clip: text;
+         background-clip: text;
+         color: transparent;
+         filter: drop-shadow(0 5px 15px rgba(251, 191, 36, 0.3));
+         }
+         @keyframes pulse {
+         0% { transform: scale(1); }
+         50% { transform: scale(1.05); }
+         100% { transform: scale(1); }
+         }
+         .author-info {
+         text-align: center;
+         margin-top: 40px;
+         padding: 25px;
+         background: rgba(15, 23, 42, 0.5);
+         border-radius: 15px;
+         border: 1px solid rgba(251, 191, 36, 0.1);
+         color: #94a3b8;
+         }
+         @media (max-width: 768px) {
+         h1 { font-size: 2.2em; }
+         .subtitle { font-size: 1em; }
+         article { padding: 25px; }
+         .framework-grid { grid-template-columns: 1fr; }
+         .comparison-table { font-size: 0.9em; }
+         .comparison-table th, .comparison-table td { padding: 10px; }
+         }
+      </style>
+   </head>
+   <body>
+      <header>
+         <div class="container">
+            <h1>إطار العمل JavaScript: دليلك الشامل 2025</h1>
+            <p class="subtitle">من React إلى NestJS، اكتشف عالم أطر العمل الحديثة واختر الأنسب لمشروعك</p>
+         </div>
+      </header>
+      <div class="container">
+         <article>
+            <div class="highlight-box">
+               <div style="text-align: center; margin-bottom: 20px;">
+                  <span class="js-icon">🚀</span>
+               </div>
+               <p style="text-align: center; font-size: 1.1em; margin: 0;">
+                  عندما تُجري مقابلة ويب حديثة، لا يُسأل المطوّر «هل تجيد JavaScript؟» بل «أي إطار عمل تستخدم؟».  
+                  أصبحت أطر العمل هي لغة العصر الجديدة التي تُحدد سرعة التطوير، جودة الكود، وسهولة الصيانة.
+               </p>
+            </div>
+            <h2>1. ما المقصود بـ «إطار عمل JavaScript»؟</h2>
+            <p>
+               إطار العمل هو مجموعة أدوات وآليات و<b>أحكام تصميم جاهزة</b> تُسرّع بناء التطبيقات. يوفر:
+            </p>
+            <ul class="check-list">
+               <li>بنية المشروع (MVC، Components، Modules)</li>
+               <li>إدارة الحالة (State Management)</li>
+               <li>نظام التوجيه (Routing)</li>
+               <li>أدوات الاختبار والبناء (Testing & Build Tools)</li>
+               <li>قواعد تسمية وتركيب متفق عليها (Coding Standards)</li>
+            </ul>
+            <p>
+               النتيجة: لا تبدأ من الصفر، بل تُركّز على منطق المنتج فقط.
+            </p>
+            <h2>2. Framework vs. Library: الفرق في جملة</h2>
+            <div class="framework-grid">
+               <div class="framework-card">
+                  <h4>📚 Library</h4>
+                  <p>أنت من يستدعيها (jQuery, Axios). <strong>أنت تتحكم في التدفق.</strong></p>
+               </div>
+               <div class="framework-card">
+                  <h4>🧩 Framework</h4>
+                  <p>هو من يستدعي كودك (Angular, Next, Nest). <strong>الإطار يتحكم في التدفق.</strong></p>
+               </div>
+            </div>
+            <h2>3. خريطة إيكوسيستم 2025</h2>
+            <div class="code-block">
+               <code>
+               Frontend<br>
+               ├─ React (Library لكن إيكوسيستم ضخم)<br>
+               ├─ Angular (كل-في-واحد)<br>
+               ├─ Vue (التدرج السلس)<br>
+               ├─ Svelte (لا Virtual DOM)<br>
+               └─ SolidJS & Qwik (الأجيال الجديدة)<br><br>
+               Full-Stack / Meta-Frameworks<br>
+               ├─ Next.js (React)<br>
+               ├─ Nuxt.js (Vue)<br>
+               ├─ SvelteKit (Svelte)<br>
+               └─ Remix & SolidStart<br><br>
+               Backend<br>
+               ├─ Express (Minimal)<br>
+               ├─ Fastify (أداء أعلى)<br>
+               ├─ NestJS (Angular Style)<br>
+               └─ AdonisJS (Laravel-like)
+               </code>
+            </div>
+            <h2>4. أطر الواجهة الأمامية – مقارنة سريعة</h2>
+            <table class="comparison-table">
+               <thead>
+                  <tr>
+                     <th>الإطار</th>
+                     <th>نموذج</th>
+                     <th>نقاط القوة</th>
+                     <th>تطبيقات مشهورة</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td><strong>React</strong></td>
+                     <td>Library – Components</td>
+                     <td>مرونة، إيكوسيستم ضخم، React-Native</td>
+                     <td>Meta, Netflix, Airbnb</td>
+                  </tr>
+                  <tr>
+                     <td><strong>Angular</strong></td>
+                     <td>Framework – TypeScript</td>
+                     <td>كل شيء مدمج: Routing، Forms، HTTP، DI</td>
+                     <td>Google, Microsoft, البنوك</td>
+                  </tr>
+                  <tr>
+                     <td><strong>Vue</strong></td>
+                     <td>Progressive – SFC</td>
+                     <td>سهل التعلم، ملف .vue، توازن بين React وAngular</td>
+                     <td>GitLab, Laravel, Alibaba</td>
+                  </tr>
+                  <tr>
+                     <td><strong>Svelte</strong></td>
+                     <td>Compiler – No Virtual DOM</td>
+                     <td>حجم صغير، أداء عالٍ، كود بسيط</td>
+                     <td>New York Times, Spotify</td>
+                  </tr>
+               </tbody>
+            </table>
+            <h2>5. أطر الخادم – أيهما تختار؟</h2>
+            <div class="framework-grid">
+               <div class="framework-card">
+                  <h4>⚡ Express.js</h4>
+                  <p>الأب البسيط. يعطيك خادم HTTP فقط؛ تُضيف الباقي بنفسك.</p>
+               </div>
+               <div class="framework-card">
+                  <h4>🚀 Fastify</h4>
+                  <p>أداء أعلى من Express بنسبة 2×، يعتمد Schema (JSON) أولًا.</p>
+               </div>
+               <div class="framework-card">
+                  <h4>🧱 NestJS</h4>
+                  <p>Angular Style لكن على الخادم: Decorators، Dependency Injection، Modules.</p>
+               </div>
+               <div class="framework-card">
+                  <h4>🛠️ AdonisJS</h4>
+                  <p>Laravel في عالم Node: ORM، Auth، Mail، Queue كلها جاهزة.</p>
+               </div>
+            </div>
+            <h2>6. معايير اختيار الإطار المناسب</h2>
+            <ul class="check-list">
+               <li><strong>حجم المشروع:</strong> MVP سريع ⇒ Next أو Nuxt. مشروع مؤسسي ⇒ Angular أو Nest.</li>
+               <li><strong>خبرة الفريق:</strong> فريق لديه TypeScript ⇒ Angular/Nest. فريق React ⇒ Next/Remix.</li>
+               <li><strong>الأداء:</strong> أسرع TTI ⇒ SvelteKit أو Qwik. خادم خفيف ⇒ Fastify.</li>
+               <li><strong>الإيكوسيستم:</strong> تحتاج وظائف متنقلة ⇒ React-Native (مبني على React).</li>
+               <li><strong>الدعم طويل الأمد:</strong> Angular و Nest مدعومان من Google & Microsoft.</li>
+            </ul>
+            <h2>7. ما الذي يُنتظرنا في 2025؟</h2>
+            <div class="highlight-box">
+               <ul style="margin: 0; padding-right: 20px;">
+                  <li>Signals ستصبح API موحّدة بين Solid، Angular، Preact، Vue.</li>
+                  <li>الـ Server Components ستنتقل من React إلى Vue وSvelte.</li>
+                  <li>Edge Runtime: Next، Remix، SvelteKit تعمل على Cloudflare Workers دون خادم تقليدي.</li>
+                  <li>TypeScript أولًا: أي إطار جديد يُطلق بكتابة TypeScript افتراضية.</li>
+               </ul>
+            </div>
+            <div class="conclusion">
+               <h2>الخلاصة العملية</h2>
+               <p>
+                  لا تُحاول تعلّم كل الأطر. اختر مسارًا واحدًا وابنِ عمقًا:
+                  <br>
+                  <strong>Frontend:</strong> React + Next أو Vue + Nuxt أو Angular حسب طبيعة الفريق.
+                  <br>
+                  <strong>Backend:</strong> NestJS لكل-في-واحد أو Fastify لأقصى أداء.
+                  <br>
+                  <strong>العمق والجودة &gt; عدد الإطارات في السيرة الذاتية.</strong>
+               </p>
+            </div>
+         </article>
+         <div class="author-info">
+            <p>نُشر في سبتمبر 2025 | فئة: تطوير الويب | الكلمات: JavaScript, Frameworks, React, Angular, Vue, NestJS</p>
+         </div>
+      </div>
+   </body>
+</html>
